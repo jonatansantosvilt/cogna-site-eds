@@ -1,8 +1,8 @@
 {
-  "mappings": [
-    "/content/aem-boilerplate/:/"
-  ],
-  "includes": [
-    "/content/aem-boilerplate/"
-  ]
+    "mappings": [
+        "/content/cogna-site-eds/:/",
+        "/content/cogna-site-eds/configuration:/.helix/config.json",
+        "/content/cogna-site-eds/metadata:/metadata.json"
+    ],
+    "includes": ["/content/cogna-site-eds/"]
 }
