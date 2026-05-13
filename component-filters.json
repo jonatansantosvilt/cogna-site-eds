@@ -45,5 +45,11 @@
     "components": [
       "stats-card"
     ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tab"
+    ]
   }
 ]
