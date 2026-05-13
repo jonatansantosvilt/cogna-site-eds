@@ -253,25 +253,18 @@
     "id": "tab",
     "fields": [
       {
-        "component": "group",
-        "name": "main",
-        "label": "Tab",
-        "collapsible": false,
-        "fields": [
-          {
-            "component": "text",
-            "name": "tabTitle",
-            "label": "Tab Title",
-            "valueType": "string",
-            "required": true
-          },
-          {
-            "component": "richtext",
-            "name": "tabContent",
-            "label": "Tab Content",
-            "valueType": "string"
-          }
-        ]
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   }
