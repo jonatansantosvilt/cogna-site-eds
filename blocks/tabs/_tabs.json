@@ -35,14 +35,7 @@
   "models": [
     {
       "id": "tabs",
-      "fields": [
-        {
-          "component": "text",
-          "name": "title",
-          "label": "Tabs Title",
-          "valueType": "string"
-        }
-      ]
+      "fields": []
     },
     {
       "id": "tab",
