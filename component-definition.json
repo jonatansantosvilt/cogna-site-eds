@@ -212,9 +212,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Tab",
-                  "model": "tab",
-                  "tabTitle": "Tab Title",
-                  "tabContent": "<p>Tab content goes here</p>"
+                  "model": "tab"
                 }
               }
             }

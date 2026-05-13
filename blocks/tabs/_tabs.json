@@ -25,9 +25,7 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "name": "Tab",
-              "model": "tab",
-              "tabTitle": "Tab Title",
-              "tabContent": "<p>Tab content goes here</p>"
+              "model": "tab"
             }
           }
         }
@@ -37,23 +35,28 @@
   "models": [
     {
       "id": "tabs",
-      "fields": []
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Tabs Title",
+          "valueType": "string"
+        }
+      ]
     },
     {
       "id": "tab",
       "fields": [
         {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false
+          "component": "text",
+          "name": "title",
+          "label": "Tab Title",
+          "valueType": "string"
         },
         {
           "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
+          "name": "content",
+          "label": "Tab Content",
           "valueType": "string"
         }
       ]
