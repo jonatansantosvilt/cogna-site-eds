@@ -1,46 +1,76 @@
 // eslint-disable-next-line import/no-unresolved
-import { toClassName } from '../../scripts/aem.js';
+import { toClassName } from "../../scripts/aem.js";
+
+function createTabList() {
+  const tablist = document.createElement("div");
+  tablist.className = "tabs-list";
+  tablist.setAttribute("role", "tablist");
+  return tablist;
+}
+
+function getTabId(tabElement) {
+  return toClassName(tabElement.textContent);
+}
+
+function decorateTabPanel(panel, id, isActive) {
+  panel.className = "tabs-panel";
+  panel.id = `tabpanel-${id}`;
+  panel.setAttribute("aria-hidden", !isActive);
+  panel.setAttribute("aria-labelledby", `tab-${id}`);
+  panel.setAttribute("role", "tabpanel");
+}
+
+function createTabButton(tabElement, id, isActive) {
+  const button = document.createElement("button");
+  button.className = "tabs-tab";
+  button.id = `tab-${id}`;
+  button.innerHTML = tabElement.innerHTML;
+  button.setAttribute("aria-controls", `tabpanel-${id}`);
+  button.setAttribute("aria-selected", isActive);
+  button.setAttribute("role", "tab");
+  button.setAttribute("type", "button");
+  return button;
+}
+
+function activateTab(block, tablist, button, panel) {
+  block.querySelectorAll("[role=tabpanel]").forEach((p) => {
+    p.setAttribute("aria-hidden", true);
+  });
+  tablist.querySelectorAll("button").forEach((btn) => {
+    btn.setAttribute("aria-selected", false);
+  });
+  panel.setAttribute("aria-hidden", false);
+  button.setAttribute("aria-selected", true);
+}
+
+function buildTab(block, tablist, panel, isActive) {
+  const tabElement = panel.firstElementChild;
+  if (!tabElement) return false;
+
+  const id = getTabId(tabElement);
+  if (!id) return false;
+
+  decorateTabPanel(panel, id, isActive);
+  const button = createTabButton(tabElement, id, isActive);
+
+  button.addEventListener("click", () => {
+    activateTab(block, tablist, button, panel);
+  });
+
+  tablist.append(button);
+  tabElement.remove();
+  return true;
+}
 
 export default async function decorate(block) {
-  // build tablist
-  const tablist = document.createElement('div');
-  tablist.className = 'tabs-list';
-  tablist.setAttribute('role', 'tablist');
+  const tablist = createTabList();
+  const panels = [...block.children];
 
-  // decorate tabs and tabpanels
-  const tabs = [...block.children].map((child) => child.firstElementChild);
-  tabs.forEach((tab, i) => {
-    const id = toClassName(tab.textContent);
-
-    // decorate tabpanel
-    const tabpanel = block.children[i];
-    tabpanel.className = 'tabs-panel';
-    tabpanel.id = `tabpanel-${id}`;
-    tabpanel.setAttribute('aria-hidden', !!i);
-    tabpanel.setAttribute('aria-labelledby', `tab-${id}`);
-    tabpanel.setAttribute('role', 'tabpanel');
-
-    // build tab button
-    const button = document.createElement('button');
-    button.className = 'tabs-tab';
-    button.id = `tab-${id}`;
-    button.innerHTML = tab.innerHTML;
-    button.setAttribute('aria-controls', `tabpanel-${id}`);
-    button.setAttribute('aria-selected', !i);
-    button.setAttribute('role', 'tab');
-    button.setAttribute('type', 'button');
-    button.addEventListener('click', () => {
-      block.querySelectorAll('[role=tabpanel]').forEach((panel) => {
-        panel.setAttribute('aria-hidden', true);
-      });
-      tablist.querySelectorAll('button').forEach((btn) => {
-        btn.setAttribute('aria-selected', false);
-      });
-      tabpanel.setAttribute('aria-hidden', false);
-      button.setAttribute('aria-selected', true);
-    });
-    tablist.append(button);
-    tab.remove();
+  let activeAssigned = false;
+  panels.forEach((panel) => {
+    const shouldBeActive = !activeAssigned;
+    const built = buildTab(block, tablist, panel, shouldBeActive);
+    if (built && shouldBeActive) activeAssigned = true;
   });
 
   block.prepend(tablist);
