@@ -214,5 +214,35 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "stats-card",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Imagem",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "number",
+        "label": "Número (Ex: +24)",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "suffix",
+        "label": "Sufixo (Ex: milhões)",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "label": "Descrição (Ex: de alunos impactados)",
+        "valueType": "string"
+      }
+    ]
   }
 ]
