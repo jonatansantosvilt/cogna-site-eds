@@ -35,7 +35,18 @@
   "models": [
     {
       "id": "tabs",
-      "fields": []
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "label": "Variant",
+          "valueType": "string",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "Timeline", "value": "timeline" }
+          ]
+        }
+      ]
     },
     {
       "id": "tab",

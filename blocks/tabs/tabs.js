@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-unresolved
-import { toClassName } from "../../scripts/aem.js";
+import { toClassName } from '../../scripts/aem.js';
 
 function createTabList() {
-  const tablist = document.createElement("div");
-  tablist.className = "tabs-list";
-  tablist.setAttribute("role", "tablist");
+  const tablist = document.createElement('div');
+  tablist.className = 'tabs-list';
+  tablist.setAttribute('role', 'tablist');
   return tablist;
 }
 
@@ -13,34 +13,34 @@ function getTabId(tabElement) {
 }
 
 function decorateTabPanel(panel, id, isActive) {
-  panel.className = "tabs-panel";
+  panel.className = 'tabs-panel';
   panel.id = `tabpanel-${id}`;
-  panel.setAttribute("aria-hidden", !isActive);
-  panel.setAttribute("aria-labelledby", `tab-${id}`);
-  panel.setAttribute("role", "tabpanel");
+  panel.setAttribute('aria-hidden', !isActive);
+  panel.setAttribute('aria-labelledby', `tab-${id}`);
+  panel.setAttribute('role', 'tabpanel');
 }
 
 function createTabButton(tabElement, id, isActive) {
-  const button = document.createElement("button");
-  button.className = "tabs-tab";
+  const button = document.createElement('button');
+  button.className = 'tabs-tab';
   button.id = `tab-${id}`;
   button.innerHTML = tabElement.innerHTML;
-  button.setAttribute("aria-controls", `tabpanel-${id}`);
-  button.setAttribute("aria-selected", isActive);
-  button.setAttribute("role", "tab");
-  button.setAttribute("type", "button");
+  button.setAttribute('aria-controls', `tabpanel-${id}`);
+  button.setAttribute('aria-selected', isActive);
+  button.setAttribute('role', 'tab');
+  button.setAttribute('type', 'button');
   return button;
 }
 
 function activateTab(block, tablist, button, panel) {
-  block.querySelectorAll("[role=tabpanel]").forEach((p) => {
-    p.setAttribute("aria-hidden", true);
+  block.querySelectorAll('[role=tabpanel]').forEach((p) => {
+    p.setAttribute('aria-hidden', true);
   });
-  tablist.querySelectorAll("button").forEach((btn) => {
-    btn.setAttribute("aria-selected", false);
+  tablist.querySelectorAll('button').forEach((btn) => {
+    btn.setAttribute('aria-selected', false);
   });
-  panel.setAttribute("aria-hidden", false);
-  button.setAttribute("aria-selected", true);
+  panel.setAttribute('aria-hidden', false);
+  button.setAttribute('aria-selected', true);
 }
 
 function buildTab(block, tablist, panel, isActive) {
@@ -53,7 +53,7 @@ function buildTab(block, tablist, panel, isActive) {
   decorateTabPanel(panel, id, isActive);
   const button = createTabButton(tabElement, id, isActive);
 
-  button.addEventListener("click", () => {
+  button.addEventListener('click', () => {
     activateTab(block, tablist, button, panel);
   });
 
