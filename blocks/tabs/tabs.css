@@ -158,23 +158,9 @@
     cursor: default;
 }
 
-.tabs.timeline .tabs-list button[aria-selected="true"]::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: var(--timeline-arrow-size);
-    height: var(--timeline-arrow-size);
-    margin-top: 4px;
-    background-color: var(--timeline-line-color);
-    mask: var(--timeline-arrow-image) no-repeat center / contain;
-    transform: translateX(-85%);
-    pointer-events: none;
-}
-
-/* .tabs .tabs-list button .tabs-tab-icon {
+.tabs .tabs-list button .tabs-tab-icon {
     display: none;
-} */
+}
 
 .tabs.timeline .tabs-list button[aria-selected="true"] .tabs-tab-icon {
     display: block;
@@ -185,7 +171,6 @@
     height: var(--timeline-arrow-size);
     margin-top: 4px;
     color: var(--timeline-line-color);
-    fill: currentcolor;
     transform: translateX(-85%);
     pointer-events: none;
 }
