@@ -1,5 +1,6 @@
 import { toClassName } from '../../scripts/aem.js';
 import loadSVG from '../../scripts/loader.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function getTabId(tabElement) {
   return toClassName(tabElement.textContent);
@@ -21,12 +22,11 @@ function decorateTabPanel(panel, id, isActive) {
   panel.setAttribute('aria-hidden', String(!isActive));
 }
 
-function extractIconName(panel) {
+function extractIconSource(panel) {
   const iconElement = panel.children[2];
-  if (!iconElement) return null;
+  if (!iconElement) return { name: null, source: null };
   const name = iconElement.textContent.trim();
-  iconElement.remove();
-  return name || null;
+  return { name: name || null, source: iconElement };
 }
 
 function createTabButton(tabElement, id, isActive) {
@@ -42,12 +42,21 @@ function createTabButton(tabElement, id, isActive) {
   return button;
 }
 
-async function attachIcon(button, iconName) {
-  if (!iconName) return;
+async function attachIcon(button, iconSource, iconName) {
+  if (!iconSource) return;
+  if (!iconName) {
+    iconSource.remove();
+    return;
+  }
   const svg = await loadSVG(`icons/${iconName}`);
-  if (!svg) return;
+  if (!svg) {
+    iconSource.remove();
+    return;
+  }
   svg.classList.add('tabs-tab-icon');
   svg.setAttribute('aria-hidden', 'true');
+  moveInstrumentation(iconSource, svg);
+  iconSource.remove();
   button.append(svg);
 }
 
@@ -95,14 +104,15 @@ async function buildTab(panel, fragment, state) {
   const id = getTabId(tabElement);
   if (!id) return;
 
-  const iconName = extractIconName(panel);
+  const { name: iconName, source: iconSource } = extractIconSource(panel);
   const isActive = state.buttons.length === 0;
   decorateTabPanel(panel, id, isActive);
   const button = createTabButton(tabElement, id, isActive);
+  moveInstrumentation(tabElement, button);
   state.register(button, panel, isActive);
   fragment.append(button);
   tabElement.remove();
-  await attachIcon(button, iconName);
+  await attachIcon(button, iconSource, iconName);
 }
 
 function setupClickDelegation(tablist, state) {
