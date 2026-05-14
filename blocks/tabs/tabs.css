@@ -1,6 +1,5 @@
 .tabs .tabs-list {
     display: flex;
-    gap: 0.5ch;
     max-width: 100%;
     font-size: var(--body-font-size-xs);
     overflow-x: auto;
@@ -70,11 +69,11 @@
 }
 
 .tabs.timeline {
-    --timeline-line-color: var(--link-color, currentColor);
-    --timeline-marker-color: var(--link-color, currentColor);
-    --timeline-label-color: var(--link-color, currentColor);
-    --timeline-dot-size: 14px;
-    --timeline-arrow-size: 56px;
+    --timeline-line-color: #fabe3d;
+    --timeline-marker-color: var(--link-color);
+    --timeline-label-color: var(--link-color);
+    --timeline-dot-size: 24px;
+    --timeline-arrow-size: 120px;
     --timeline-text-to-dot: 30px;
     --timeline-active-scale: 2.5;
 }
@@ -82,12 +81,12 @@
 .tabs.timeline .tabs-list {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-end;
     gap: 1rem;
     padding: 1.5rem 0 calc(var(--timeline-arrow-size) + 1rem);
     overflow: visible;
-    font-size: var(--body-font-size-m);
+    font-size: var(--body-font-size-l);
 }
 
 .tabs.timeline .tabs-list::before {
@@ -166,7 +165,7 @@
     display: block;
     position: absolute;
     top: 100%;
-    left: 50%;
+    left: 30%;
     width: var(--timeline-arrow-size);
     height: var(--timeline-arrow-size);
     margin-top: 4px;
