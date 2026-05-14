@@ -17,27 +17,29 @@
   ],
   "models": [
     {
-      "id": "section",
-      "fields": [
-        {
-          "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree"
-        },
-        {
-          "component": "multiselect",
-          "name": "style",
-          "label": "Style",
-          "options": [
-            {
-              "name": "Highlight",
-              "value": "highlight"
-            }
-          ]
-        }
+  "id": "section",
+  "fields": [
+    {
+      "component": "select",
+      "name": "backgroundColor",
+      "label": "Cor de Fundo da Seção",
+      "valueType": "string",
+      "options": [
+        { "name": "Padrão (Branco)", "value": "bg-white" },
+        { "name": "Cinza Claro (#EAEEEF)", "value": "bg-light-gray" },
+        { "name": "Roxo Kroton (#5219A1)", "value": "bg-purple" }
+      ]
+    },
+    {
+      "component": "multiselect",
+      "name": "style",
+      "label": "Estilos Adicionais",
+      "options": [
+        { "name": "Texto Centralizado", "value": "text-center" }
       ]
     }
+  ]
+}
   ],
   "filters": [
     {

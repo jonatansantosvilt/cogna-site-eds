@@ -45,12 +45,12 @@
       {
         "component": "text",
         "name": "title",
-        "label": "Title"
+        "label": "Título"
       },
       {
         "component": "select",
         "name": "titleType",
-        "label": "Title Type",
+        "label": "Tipo de Título (H1-H6)",
         "options": [
           {
             "name": "h1",
@@ -75,6 +75,26 @@
           {
             "name": "h6",
             "value": "h6"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "titleColor",
+        "label": "Cor do Título",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Roxo (Padrão)",
+            "value": "color-purple"
+          },
+          {
+            "name": "Amarelo",
+            "value": "color-yellow"
+          },
+          {
+            "name": "Grafite",
+            "value": "color-dark"
           }
         ]
       }
@@ -123,19 +143,33 @@
     "id": "section",
     "fields": [
       {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "The label shown for this section in the Content Tree"
+        "component": "select",
+        "name": "backgroundColor",
+        "label": "Cor de Fundo da Seção",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Padrão (Branco)",
+            "value": "bg-white"
+          },
+          {
+            "name": "Cinza Claro (#EAEEEF)",
+            "value": "bg-light-gray"
+          },
+          {
+            "name": "Roxo Kroton (#5219A1)",
+            "value": "bg-purple"
+          }
+        ]
       },
       {
         "component": "multiselect",
         "name": "style",
-        "label": "Style",
+        "label": "Estilos Adicionais",
         "options": [
           {
-            "name": "Highlight",
-            "value": "highlight"
+            "name": "Texto Centralizado",
+            "value": "text-center"
           }
         ]
       }
