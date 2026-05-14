@@ -30,17 +30,6 @@
             { "name": "h5", "value": "h5" },
             { "name": "h6", "value": "h6" }
           ]
-        },
-        {
-          "component": "select",
-          "name": "titleColor",
-          "label": "Cor do Título",
-          "valueType": "string",
-          "options": [
-            { "name": "Roxo (Padrão)", "value": "color-purple" },
-            { "name": "Amarelo", "value": "color-yellow" },
-            { "name": "Grafite", "value": "color-dark" }
-          ]
         }
       ]
     }

@@ -22,18 +22,36 @@
     {
       "component": "select",
       "name": "backgroundColor",
-      "label": "Cor de Fundo da Seção",
-      "valueType": "string",
+      "label": "Cor de Fundo",
       "options": [
-        { "name": "Padrão (Branco)", "value": "bg-white" },
-        { "name": "Cinza Claro (#EAEEEF)", "value": "bg-light-gray" },
-        { "name": "Roxo Kroton (#5219A1)", "value": "bg-purple" }
+        { "name": "Branco", "value": "white" },
+        { "name": "Cinza Claro", "value": "light-gray" },
+        { "name": "Roxo", "value": "purple" }
+      ]
+    },
+    {
+      "component": "select",
+      "name": "headingSize",
+      "label": "Tamanho do Título/Texto",
+      "options": [
+        { "name": "Padrão", "value": "default" },
+        { "name": "Grande (Destaque)", "value": "large" }
+      ]
+    },
+    {
+      "component": "select",
+      "name": "headingColor",
+      "label": "Cor do Título",
+      "options": [
+        { "name": "Roxo", "value": "purple" },
+        { "name": "Amarelo", "value": "yellow" },
+        { "name": "Grafite", "value": "dark" }
       ]
     },
     {
       "component": "multiselect",
       "name": "style",
-      "label": "Estilos Adicionais",
+      "label": "Outros Estilos",
       "options": [
         { "name": "Texto Centralizado", "value": "text-center" }
       ]
