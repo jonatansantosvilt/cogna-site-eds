@@ -62,6 +62,16 @@
           "name": "content",
           "label": "Tab Content",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "icon",
+          "label": "Tab Icon",
+          "valueType": "string",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "Cogna Arrow", "value": "cogna-arrow" }
+          ]
         }
       ]
     }

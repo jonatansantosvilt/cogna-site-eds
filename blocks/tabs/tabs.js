@@ -1,77 +1,151 @@
-// eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
-
-function createTabList() {
-  const tablist = document.createElement('div');
-  tablist.className = 'tabs-list';
-  tablist.setAttribute('role', 'tablist');
-  return tablist;
-}
+import loadSVG from '../../scripts/loader.js';
 
 function getTabId(tabElement) {
   return toClassName(tabElement.textContent);
 }
 
+function createTabList() {
+  const tablist = document.createElement('div');
+  tablist.className = 'tabs-list';
+  tablist.setAttribute('role', 'tablist');
+  tablist.setAttribute('aria-orientation', 'horizontal');
+  return tablist;
+}
+
 function decorateTabPanel(panel, id, isActive) {
   panel.className = 'tabs-panel';
   panel.id = `tabpanel-${id}`;
-  panel.setAttribute('aria-hidden', !isActive);
-  panel.setAttribute('aria-labelledby', `tab-${id}`);
   panel.setAttribute('role', 'tabpanel');
+  panel.setAttribute('aria-labelledby', `tab-${id}`);
+  panel.setAttribute('aria-hidden', String(!isActive));
+}
+
+function extractIconName(panel) {
+  const iconElement = panel.children[2];
+  if (!iconElement) return null;
+  const name = iconElement.textContent.trim();
+  iconElement.remove();
+  return name || null;
 }
 
 function createTabButton(tabElement, id, isActive) {
   const button = document.createElement('button');
   button.className = 'tabs-tab';
   button.id = `tab-${id}`;
+  button.type = 'button';
   button.innerHTML = tabElement.innerHTML;
-  button.setAttribute('aria-controls', `tabpanel-${id}`);
-  button.setAttribute('aria-selected', isActive);
   button.setAttribute('role', 'tab');
-  button.setAttribute('type', 'button');
+  button.setAttribute('aria-controls', `tabpanel-${id}`);
+  button.setAttribute('aria-selected', String(isActive));
+  button.setAttribute('tabindex', isActive ? '0' : '-1');
   return button;
 }
 
-function activateTab(block, tablist, button, panel) {
-  block.querySelectorAll('[role=tabpanel]').forEach((p) => {
-    p.setAttribute('aria-hidden', true);
-  });
-  tablist.querySelectorAll('button').forEach((btn) => {
-    btn.setAttribute('aria-selected', false);
-  });
-  panel.setAttribute('aria-hidden', false);
-  button.setAttribute('aria-selected', true);
+async function attachIcon(button, iconName) {
+  if (!iconName) return;
+  const svg = await loadSVG(`icons/${iconName}`);
+  if (!svg) return;
+  svg.classList.add('tabs-tab-icon');
+  svg.setAttribute('aria-hidden', 'true');
+  button.append(svg);
 }
 
-function buildTab(block, tablist, panel, isActive) {
+function createTabsState() {
+  const buttonToPanel = new WeakMap();
+  const buttons = [];
+  let activeButton = null;
+  let activePanel = null;
+
+  return {
+    buttons,
+    register(button, panel, isActive) {
+      buttons.push(button);
+      buttonToPanel.set(button, panel);
+      if (isActive) {
+        activeButton = button;
+        activePanel = panel;
+      }
+    },
+    activate(button) {
+      if (button === activeButton) return;
+      const panel = buttonToPanel.get(button);
+      if (!panel) return;
+
+      if (activeButton) {
+        activeButton.setAttribute('aria-selected', 'false');
+        activeButton.setAttribute('tabindex', '-1');
+        activePanel.setAttribute('aria-hidden', 'true');
+      }
+
+      button.setAttribute('aria-selected', 'true');
+      button.setAttribute('tabindex', '0');
+      panel.setAttribute('aria-hidden', 'false');
+
+      activeButton = button;
+      activePanel = panel;
+    },
+  };
+}
+
+async function buildTab(panel, fragment, state) {
   const tabElement = panel.firstElementChild;
-  if (!tabElement) return false;
+  if (!tabElement) return;
 
   const id = getTabId(tabElement);
-  if (!id) return false;
+  if (!id) return;
 
+  const iconName = extractIconName(panel);
+  const isActive = state.buttons.length === 0;
   decorateTabPanel(panel, id, isActive);
   const button = createTabButton(tabElement, id, isActive);
-
-  button.addEventListener('click', () => {
-    activateTab(block, tablist, button, panel);
-  });
-
-  tablist.append(button);
+  state.register(button, panel, isActive);
+  fragment.append(button);
   tabElement.remove();
-  return true;
+  await attachIcon(button, iconName);
+}
+
+function setupClickDelegation(tablist, state) {
+  tablist.addEventListener('click', (event) => {
+    const button = event.target.closest('button[role="tab"]');
+    if (button && tablist.contains(button)) state.activate(button);
+  });
+}
+
+const KEY_HANDLERS = {
+  ArrowRight: (i, last) => (i === last ? 0 : i + 1),
+  ArrowLeft: (i, last) => (i === 0 ? last : i - 1),
+  Home: () => 0,
+  End: (_, last) => last,
+};
+
+function setupKeyboardNav(tablist, state) {
+  tablist.addEventListener('keydown', (event) => {
+    const handler = KEY_HANDLERS[event.key];
+    if (!handler) return;
+
+    const { buttons } = state;
+    const current = buttons.indexOf(document.activeElement);
+    if (current === -1) return;
+
+    event.preventDefault();
+    const next = buttons[handler(current, buttons.length - 1)];
+    next.focus();
+    state.activate(next);
+  });
 }
 
 export default async function decorate(block) {
   const tablist = createTabList();
-  const panels = [...block.children];
+  const fragment = document.createDocumentFragment();
+  const state = createTabsState();
 
-  let activeAssigned = false;
-  panels.forEach((panel) => {
-    const shouldBeActive = !activeAssigned;
-    const built = buildTab(block, tablist, panel, shouldBeActive);
-    if (built && shouldBeActive) activeAssigned = true;
-  });
+  await Promise.all(
+    [...block.children].map((panel) => buildTab(panel, fragment, state)),
+  );
 
+  tablist.append(fragment);
+  setupClickDelegation(tablist, state);
+  setupKeyboardNav(tablist, state);
   block.prepend(tablist);
 }

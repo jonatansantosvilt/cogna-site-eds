@@ -1,57 +1,209 @@
 .tabs .tabs-list {
-  display: flex;
-  gap: 0.5ch;
-  max-width: 100%;
-  font-size: var(--body-font-size-xs);
-  overflow-x: auto;
+    display: flex;
+    gap: 0.5ch;
+    max-width: 100%;
+    font-size: var(--body-font-size-xs);
+    overflow-x: auto;
 }
 
 @media (width >= 600px) {
-  .tabs .tabs-list {
-    font-size: var(--body-font-size-s);
-  }
+    .tabs .tabs-list {
+        font-size: var(--body-font-size-s);
+    }
 }
 
 @media (width >= 900px) {
-  .tabs .tabs-list {
-    font-size: var(--body-font-size-m);
-  }
+    .tabs .tabs-list {
+        font-size: var(--body-font-size-m);
+    }
 }
 
 .tabs .tabs-list button {
-  flex: 0 0 max-content;
-  margin: 0;
-  border: 1px solid var(--dark-color);
-  border-radius: 0;
-  padding: 0.5em;
-  background-color: #949494;
-  color: initial;
-  font-weight: bold;
-  line-height: unset;
-  text-align: initial;
-  text-overflow: unset;
-  overflow: unset;
-  white-space: unset;
-  transition: background-color 0.2s;
+    flex: 0 0 max-content;
+    margin: 0;
+    border: 1px solid var(--text-color);
+    border-radius: 0;
+    padding: 0.5em 1em;
+    background-color: var(--light-color);
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-weight: bold;
+    line-height: unset;
+    text-align: initial;
+    text-overflow: unset;
+    overflow: unset;
+    white-space: unset;
+    cursor: pointer;
+    transition:
+        background-color 0.2s,
+        color 0.2s;
 }
 
 .tabs .tabs-list button p {
-  margin: 0;
+    margin: 0;
 }
 
-.tabs .tabs-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
-  cursor: initial;
+.tabs .tabs-list button:hover {
+    background-color: var(--background-color);
+}
+
+.tabs .tabs-list button:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.tabs .tabs-list button[aria-selected="true"] {
+    border-bottom-color: var(--background-color);
+    background-color: var(--background-color);
+    cursor: default;
 }
 
 .tabs .tabs-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid var(--dark-color);
-  overflow: auto;
+    margin-top: -1px;
+    padding: 24px;
+    border: 1px solid var(--text-color);
+    overflow: auto;
 }
 
-.tabs .tabs-panel[aria-hidden='true'] {
-  display: none;
+.tabs .tabs-panel[aria-hidden="true"] {
+    display: none;
+}
+
+.tabs.timeline {
+    --timeline-line-color: var(--link-color, currentColor);
+    --timeline-marker-color: var(--link-color, currentColor);
+    --timeline-label-color: var(--link-color, currentColor);
+    --timeline-dot-size: 14px;
+    --timeline-arrow-size: 56px;
+    --timeline-text-to-dot: 30px;
+    --timeline-active-scale: 2.5;
+}
+
+.tabs.timeline .tabs-list {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 0 calc(var(--timeline-arrow-size) + 1rem);
+    overflow: visible;
+    font-size: var(--body-font-size-m);
+}
+
+.tabs.timeline .tabs-list::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0 12px;
+    bottom: calc(
+        var(--timeline-arrow-size) + 1rem + (var(--timeline-dot-size) / 2) - 1px
+    );
+    height: 2px;
+    background-color: var(--timeline-line-color);
+    z-index: 0;
+}
+
+.tabs.timeline .tabs-list::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: calc(
+        var(--timeline-arrow-size) + 1rem + (var(--timeline-dot-size) / 2) - 6px
+    );
+    width: 0;
+    height: 0;
+    border-block: 6px solid transparent;
+    border-inline-start: 12px solid var(--timeline-line-color);
+    z-index: 1;
+}
+
+.tabs.timeline .tabs-list button {
+    position: relative;
+    flex: 0 0 auto;
+    margin: 0;
+    border: none;
+    padding: 0 0 calc(var(--timeline-dot-size) + var(--timeline-text-to-dot));
+    background: transparent;
+    color: var(--timeline-label-color);
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1;
+    transition: font-size 0.2s ease;
+}
+
+.tabs.timeline .tabs-list button::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: var(--timeline-dot-size);
+    height: var(--timeline-dot-size);
+    border-radius: 50%;
+    background-color: var(--timeline-marker-color);
+    transform: translateX(-50%);
+    transition: transform 0.2s;
+}
+
+.tabs.timeline .tabs-list button:hover::after,
+.tabs.timeline .tabs-list button:focus-visible::after {
+    transform: translateX(-50%) scale(1.3);
+}
+
+.tabs.timeline .tabs-list button:focus-visible {
+    outline: none;
+}
+
+.tabs.timeline .tabs-list button[aria-selected="true"] {
+    font-size: calc(1em * var(--timeline-active-scale));
+    cursor: default;
+}
+
+.tabs.timeline .tabs-list button[aria-selected="true"]::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: var(--timeline-arrow-size);
+    height: var(--timeline-arrow-size);
+    margin-top: 4px;
+    background-color: var(--timeline-line-color);
+    mask: var(--timeline-arrow-image) no-repeat center / contain;
+    transform: translateX(-85%);
+    pointer-events: none;
+}
+
+/* .tabs .tabs-list button .tabs-tab-icon {
+    display: none;
+} */
+
+.tabs.timeline .tabs-list button[aria-selected="true"] .tabs-tab-icon {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: var(--timeline-arrow-size);
+    height: var(--timeline-arrow-size);
+    margin-top: 4px;
+    color: var(--timeline-line-color);
+    fill: currentcolor;
+    transform: translateX(-85%);
+    pointer-events: none;
+}
+
+.tabs.timeline .tabs-panel {
+    margin-top: 1rem;
+    border: none;
+    padding-inline: 0;
+}
+
+@media (width < 600px) {
+    .tabs.timeline {
+        --timeline-active-scale: 1.6;
+        --timeline-arrow-size: 40px;
+    }
+
+    .tabs.timeline .tabs-list {
+        gap: 0.5rem;
+        font-size: var(--body-font-size-xs);
+    }
 }
