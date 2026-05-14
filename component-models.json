@@ -276,12 +276,6 @@
         "valueType": "string"
       },
       {
-        "component": "richtext",
-        "name": "content",
-        "label": "Tab Content",
-        "valueType": "string"
-      },
-      {
         "component": "select",
         "name": "icon",
         "label": "Tab Icon",
@@ -296,6 +290,13 @@
             "value": "cogna-arrow"
           }
         ]
+      },
+      {
+        "component": "aem-content",
+        "name": "content",
+        "label": "Tab Content",
+        "valueType": "string",
+        "multi": true
       }
     ]
   }
