@@ -127,7 +127,6 @@
     line-height: 1;
     cursor: pointer;
     z-index: 1;
-    transition: font-size 0.2s ease;
 }
 
 .tabs.timeline .tabs-list button::after {

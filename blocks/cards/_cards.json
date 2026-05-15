@@ -44,9 +44,16 @@
         },
         {
           "component": "richtext",
-          "name": "text",
+          "name": "title",
           "value": "",
-          "label": "Text",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "value": "",
+          "label": "Description",
           "valueType": "string"
         }
       ]
@@ -55,9 +62,7 @@
   "filters": [
     {
       "id": "cards",
-      "components": [
-        "card"
-      ]
+      "components": ["card"]
     }
   ]
 }
