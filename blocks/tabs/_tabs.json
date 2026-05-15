@@ -72,7 +72,7 @@
           "name": "content",
           "label": "Tab Content",
           "valueType": "string",
-          "multi": true
+          "multi": false
         }
       ]
     }

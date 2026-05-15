@@ -146,14 +146,16 @@ function setupKeyboardNav(tablist, state) {
 }
 
 export default async function decorate(block) {
+  // const [tab] = [...block.children];
+  // const [, , pageBlock] = [...tab.children];
+  // const page = await loadFragment(pageBlock.textContent);
+  // console.log("🚀 ~ decorate ~ page:", page);
   const tablist = createTabList();
   const fragment = document.createDocumentFragment();
   const state = createTabsState();
-
   await Promise.all(
     [...block.children].map((panel) => buildTab(panel, fragment, state)),
   );
-
   tablist.append(fragment);
   setupClickDelegation(tablist, state);
   setupKeyboardNav(tablist, state);
