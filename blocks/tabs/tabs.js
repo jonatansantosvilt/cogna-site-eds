@@ -1,25 +1,25 @@
-import { toClassName } from '../../scripts/aem.js';
-import loadSVG from '../../scripts/loader.js';
-import { loadFragment } from '../fragment/fragment.js';
+import { toClassName } from "../../scripts/aem.js";
+import loadSVG from "../../scripts/loader.js";
+import { loadFragment } from "../fragment/fragment.js";
 
 function getTabId(tabElement) {
   return toClassName(tabElement.textContent);
 }
 
 function createTabList() {
-  const tablist = document.createElement('div');
-  tablist.className = 'tabs-list';
-  tablist.setAttribute('role', 'tablist');
-  tablist.setAttribute('aria-orientation', 'horizontal');
+  const tablist = document.createElement("div");
+  tablist.className = "tabs-list";
+  tablist.setAttribute("role", "tablist");
+  tablist.setAttribute("aria-orientation", "horizontal");
   return tablist;
 }
 
 function decorateTabPanel(panel, id, isActive) {
-  panel.className = 'tabs-panel';
+  panel.className = "tabs-panel";
   panel.id = `tabpanel-${id}`;
-  panel.setAttribute('role', 'tabpanel');
-  panel.setAttribute('aria-labelledby', `tab-${id}`);
-  panel.setAttribute('aria-hidden', String(!isActive));
+  panel.setAttribute("role", "tabpanel");
+  panel.setAttribute("aria-labelledby", `tab-${id}`);
+  panel.setAttribute("aria-hidden", String(!isActive));
 }
 
 function extractPath(url) {
@@ -28,28 +28,28 @@ function extractPath(url) {
 }
 
 function extractPanelMetadata(panel) {
-  const extras = Array.from(panel.children).slice(1);
-  const iconElement = extras[0];
-  const linkElement = extras[1];
+  const extras = Array.from(panel.children);
+  const iconElement = extras[1];
+  const linkElement = extras[3];
 
   return {
     iconName: iconElement?.textContent.trim(),
     iconSource: iconElement,
-    fragmentPath: extractPath(linkElement?.querySelector('a')?.href),
+    fragmentPath: extractPath(linkElement?.querySelector("a")?.href),
     fragmentSource: linkElement,
   };
 }
 
 function createTabButton(tabElement, id, isActive) {
-  const button = document.createElement('button');
-  button.className = 'tabs-tab';
+  const button = document.createElement("button");
+  button.className = "tabs-tab";
   button.id = `tab-${id}`;
-  button.type = 'button';
+  button.type = "button";
   button.innerHTML = tabElement.innerHTML;
-  button.setAttribute('role', 'tab');
-  button.setAttribute('aria-controls', `tabpanel-${id}`);
-  button.setAttribute('aria-selected', String(isActive));
-  button.setAttribute('tabindex', isActive ? '0' : '-1');
+  button.setAttribute("role", "tab");
+  button.setAttribute("aria-controls", `tabpanel-${id}`);
+  button.setAttribute("aria-selected", String(isActive));
+  button.setAttribute("tabindex", isActive ? "0" : "-1");
   return button;
 }
 
@@ -64,8 +64,8 @@ async function attachIcon(button, iconSource, iconName) {
     iconSource.remove();
     return;
   }
-  svg.classList.add('tabs-tab-icon');
-  svg.setAttribute('aria-hidden', 'true');
+  svg.classList.add("tabs-tab-icon");
+  svg.setAttribute("aria-hidden", "true");
   iconSource.remove();
   button.append(svg);
 }
@@ -108,14 +108,14 @@ function createTabsState() {
       if (!panel) return;
 
       if (activeButton) {
-        activeButton.setAttribute('aria-selected', 'false');
-        activeButton.setAttribute('tabindex', '-1');
-        activePanel.setAttribute('aria-hidden', 'true');
+        activeButton.setAttribute("aria-selected", "false");
+        activeButton.setAttribute("tabindex", "-1");
+        activePanel.setAttribute("aria-hidden", "true");
       }
 
-      button.setAttribute('aria-selected', 'true');
-      button.setAttribute('tabindex', '0');
-      panel.setAttribute('aria-hidden', 'false');
+      button.setAttribute("aria-selected", "true");
+      button.setAttribute("tabindex", "0");
+      panel.setAttribute("aria-hidden", "false");
 
       activeButton = button;
       activePanel = panel;
@@ -132,9 +132,8 @@ async function buildTab(panel, fragment, state) {
   const id = getTabId(tabElement);
   if (!id) return;
 
-  const {
-    iconName, iconSource, fragmentPath, fragmentSource,
-  } = extractPanelMetadata(panel);
+  const { iconName, iconSource, fragmentPath, fragmentSource } =
+    extractPanelMetadata(panel);
 
   const isActive = state.buttons.length === 0;
   decorateTabPanel(panel, id, isActive);
@@ -155,7 +154,7 @@ async function buildTab(panel, fragment, state) {
 }
 
 function setupClickDelegation(tablist, state) {
-  tablist.addEventListener('click', (event) => {
+  tablist.addEventListener("click", (event) => {
     const button = event.target.closest('button[role="tab"]');
     if (button && tablist.contains(button)) state.activate(button);
   });
