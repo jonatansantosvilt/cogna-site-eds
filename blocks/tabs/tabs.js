@@ -1,6 +1,6 @@
 import { toClassName } from '../../scripts/aem.js';
 import loadSVG from '../../scripts/loader.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
+import { loadFragment } from '../fragment/fragment.js';
 
 function getTabId(tabElement) {
   return toClassName(tabElement.textContent);
@@ -22,11 +22,22 @@ function decorateTabPanel(panel, id, isActive) {
   panel.setAttribute('aria-hidden', String(!isActive));
 }
 
-function extractIconSource(panel) {
-  const iconElement = panel.children[2];
-  if (!iconElement) return { name: null, source: null };
-  const name = iconElement.textContent.trim();
-  return { name: name || null, source: iconElement };
+function extractPath(url) {
+  const match = url.match(/^https?:\/\/[^/]+(\/.*)?$/);
+  return match?.[1] ?? url;
+}
+
+function extractPanelMetadata(panel) {
+  const extras = Array.from(panel.children).slice(1);
+  const iconElement = extras[0];
+  const linkElement = extras[1];
+
+  return {
+    iconName: iconElement?.textContent.trim(),
+    iconSource: iconElement,
+    fragmentPath: extractPath(linkElement?.querySelector('a')?.href),
+    fragmentSource: linkElement,
+  };
 }
 
 function createTabButton(tabElement, id, isActive) {
@@ -55,25 +66,40 @@ async function attachIcon(button, iconSource, iconName) {
   }
   svg.classList.add('tabs-tab-icon');
   svg.setAttribute('aria-hidden', 'true');
-  moveInstrumentation(iconSource, svg);
   iconSource.remove();
   button.append(svg);
 }
 
+async function loadPanelContent(panel, fragmentPath) {
+  const fragment = await loadFragment(fragmentPath);
+  if (!fragment) return;
+  panel.append(...fragment.childNodes);
+}
+
 function createTabsState() {
   const buttonToPanel = new WeakMap();
+  const panelLoaders = new WeakMap();
   const buttons = [];
   let activeButton = null;
   let activePanel = null;
 
+  function loadOnce(panel) {
+    const loader = panelLoaders.get(panel);
+    if (!loader) return;
+    panelLoaders.delete(panel);
+    loader();
+  }
+
   return {
     buttons,
-    register(button, panel, isActive) {
+    register(button, panel, loader, isActive) {
       buttons.push(button);
       buttonToPanel.set(button, panel);
+      if (loader) panelLoaders.set(panel, loader);
       if (isActive) {
         activeButton = button;
         activePanel = panel;
+        loadOnce(panel);
       }
     },
     activate(button) {
@@ -93,6 +119,8 @@ function createTabsState() {
 
       activeButton = button;
       activePanel = panel;
+
+      loadOnce(panel);
     },
   };
 }
@@ -104,14 +132,25 @@ async function buildTab(panel, fragment, state) {
   const id = getTabId(tabElement);
   if (!id) return;
 
-  const { name: iconName, source: iconSource } = extractIconSource(panel);
+  const {
+    iconName, iconSource, fragmentPath, fragmentSource,
+  } = extractPanelMetadata(panel);
+
   const isActive = state.buttons.length === 0;
   decorateTabPanel(panel, id, isActive);
+
   const button = createTabButton(tabElement, id, isActive);
-  moveInstrumentation(tabElement, button);
-  state.register(button, panel, isActive);
+
+  const loader = fragmentPath
+    ? () => loadPanelContent(panel, fragmentPath)
+    : null;
+
+  state.register(button, panel, loader, isActive);
   fragment.append(button);
   tabElement.remove();
+
+  if (fragmentSource) fragmentSource.remove();
+
   await attachIcon(button, iconSource, iconName);
 }
 
@@ -122,34 +161,7 @@ function setupClickDelegation(tablist, state) {
   });
 }
 
-const KEY_HANDLERS = {
-  ArrowRight: (i, last) => (i === last ? 0 : i + 1),
-  ArrowLeft: (i, last) => (i === 0 ? last : i - 1),
-  Home: () => 0,
-  End: (_, last) => last,
-};
-
-function setupKeyboardNav(tablist, state) {
-  tablist.addEventListener('keydown', (event) => {
-    const handler = KEY_HANDLERS[event.key];
-    if (!handler) return;
-
-    const { buttons } = state;
-    const current = buttons.indexOf(document.activeElement);
-    if (current === -1) return;
-
-    event.preventDefault();
-    const next = buttons[handler(current, buttons.length - 1)];
-    next.focus();
-    state.activate(next);
-  });
-}
-
 export default async function decorate(block) {
-  // const [tab] = [...block.children];
-  // const [, , pageBlock] = [...tab.children];
-  // const page = await loadFragment(pageBlock.textContent);
-  // console.log("🚀 ~ decorate ~ page:", page);
   const tablist = createTabList();
   const fragment = document.createDocumentFragment();
   const state = createTabsState();
@@ -158,6 +170,5 @@ export default async function decorate(block) {
   );
   tablist.append(fragment);
   setupClickDelegation(tablist, state);
-  setupKeyboardNav(tablist, state);
   block.prepend(tablist);
 }
