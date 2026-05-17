@@ -1,4 +1,9 @@
-import { toClassName } from '../../scripts/aem.js';
+import {
+  buildBlock,
+  decorateBlock,
+  loadBlock,
+  toClassName,
+} from '../../scripts/aem.js';
 import loadSVG from '../../scripts/loader.js';
 import { loadFragment } from '../fragment/fragment.js';
 
@@ -14,12 +19,13 @@ function createTabList() {
   return tablist;
 }
 
-function decorateTabPanel(panel, id, isActive) {
+function decorateTabPanel(panel, id, isActive, tabContentStyle) {
   panel.className = 'tabs-panel';
   panel.id = `tabpanel-${id}`;
   panel.setAttribute('role', 'tabpanel');
   panel.setAttribute('aria-labelledby', `tab-${id}`);
   panel.setAttribute('aria-hidden', String(!isActive));
+  panel.setAttribute('tab-content-style', tabContentStyle);
 }
 
 function extractPath(url) {
@@ -30,6 +36,7 @@ function extractPath(url) {
 function extractPanelMetadata(panel) {
   const extras = Array.from(panel.children);
   const iconElement = extras[1];
+  const tabContentStyleElement = extras[2];
   const linkElement = extras[3];
 
   return {
@@ -37,6 +44,8 @@ function extractPanelMetadata(panel) {
     iconSource: iconElement,
     fragmentPath: extractPath(linkElement?.querySelector('a')?.href),
     fragmentSource: linkElement,
+    tabContentStyle: tabContentStyleElement?.textContent.trim(),
+    tabContentStyleSource: tabContentStyleElement,
   };
 }
 
@@ -73,6 +82,18 @@ async function attachIcon(button, iconSource, iconName) {
 async function loadPanelContent(panel, fragmentPath) {
   const fragment = await loadFragment(fragmentPath);
   if (!fragment) return;
+  const tabContentStyle = panel.getAttribute('tab-content-style');
+  if (tabContentStyle && tabContentStyle === 'card-carousel') {
+    const cardsBlock = fragment.querySelector('[data-block-name="cards"]');
+    const cardsWrapper = cardsBlock?.closest('.cards-wrapper');
+    const cardCarouselBlock = buildBlock('card-carousel', cardsBlock.innerHTML);
+    cardsWrapper.replaceChildren(cardCarouselBlock);
+    decorateBlock(cardCarouselBlock);
+    await loadBlock(cardCarouselBlock);
+    panel.append(cardCarouselBlock);
+
+    return;
+  }
   panel.append(...fragment.childNodes);
 }
 
@@ -133,11 +154,18 @@ async function buildTab(panel, fragment, state) {
   if (!id) return;
 
   const {
-    iconName, iconSource, fragmentPath, fragmentSource,
+    iconName,
+    iconSource,
+    fragmentPath,
+    fragmentSource,
+    tabContentStyle,
+    tabContentStyleSource,
   } = extractPanelMetadata(panel);
 
+  if (tabContentStyleSource) tabContentStyleSource.remove();
+
   const isActive = state.buttons.length === 0;
-  decorateTabPanel(panel, id, isActive);
+  decorateTabPanel(panel, id, isActive, tabContentStyle);
 
   const button = createTabButton(tabElement, id, isActive);
 
