@@ -68,6 +68,16 @@
           ]
         },
         {
+          "component": "select",
+          "name": "tab-content-style",
+          "label": "Tab Content Style",
+          "valueType": "string",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "Card Carousel", "value": "card-carousel" }
+          ]
+        },
+        {
           "component": "aem-content",
           "name": "content",
           "label": "Tab Content",
