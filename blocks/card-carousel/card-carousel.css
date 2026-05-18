@@ -1,7 +1,7 @@
 .card-carousel {
     --items-per-view: 1;
     --gap: 1rem;
-    --icon-size: 24px;
+    --icon-size: 100px;
     --button-padding-x: 0.75rem;
     --button-gap: 0.5rem;
     --transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);

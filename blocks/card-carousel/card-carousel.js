@@ -106,7 +106,10 @@ export default function decorate(block) {
   });
 
   const view = {
-    viewport, track, prev, next,
+    viewport,
+    track,
+    prev,
+    next,
   };
 
   bindRender(controller, view);

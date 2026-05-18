@@ -70,12 +70,20 @@
 
 .tabs.timeline {
     --timeline-line-color: #fabe3d;
-    --timeline-marker-color: var(--link-color);
-    --timeline-label-color: var(--link-color);
+    --timeline-marker-color: #8038f1;
+    --timeline-label-color: #8038f1;
     --timeline-dot-size: 24px;
     --timeline-arrow-size: 120px;
     --timeline-text-to-dot: 30px;
     --timeline-active-scale: 2.5;
+
+    width: 100%;
+}
+
+.tabs-wrapper {
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 12rem !important;
 }
 
 .tabs.timeline .tabs-list {
