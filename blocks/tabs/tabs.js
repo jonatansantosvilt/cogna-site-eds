@@ -3,29 +3,29 @@ import {
   decorateBlock,
   loadBlock,
   toClassName,
-} from "../../scripts/aem.js";
-import loadSVG from "../../scripts/loader.js";
-import { loadFragment } from "../fragment/fragment.js";
+} from '../../scripts/aem.js';
+import loadSVG from '../../scripts/loader.js';
+import { loadFragment } from '../fragment/fragment.js';
 
 function getTabId(tabElement) {
   return toClassName(tabElement.textContent);
 }
 
 function createTabList() {
-  const tablist = document.createElement("div");
-  tablist.className = "tabs-list";
-  tablist.setAttribute("role", "tablist");
-  tablist.setAttribute("aria-orientation", "horizontal");
+  const tablist = document.createElement('div');
+  tablist.className = 'tabs-list';
+  tablist.setAttribute('role', 'tablist');
+  tablist.setAttribute('aria-orientation', 'horizontal');
   return tablist;
 }
 
 function decorateTabPanel(panel, id, isActive, tabContentStyle) {
-  panel.className = "tabs-panel";
+  panel.className = 'tabs-panel';
   panel.id = `tabpanel-${id}`;
-  panel.setAttribute("role", "tabpanel");
-  panel.setAttribute("aria-labelledby", `tab-${id}`);
-  panel.setAttribute("aria-hidden", String(!isActive));
-  panel.setAttribute("tab-content-style", tabContentStyle);
+  panel.setAttribute('role', 'tabpanel');
+  panel.setAttribute('aria-labelledby', `tab-${id}`);
+  panel.setAttribute('aria-hidden', String(!isActive));
+  panel.setAttribute('tab-content-style', tabContentStyle);
 }
 
 function extractPath(url) {
@@ -42,7 +42,7 @@ function extractPanelMetadata(panel) {
   return {
     iconName: iconElement?.textContent.trim(),
     iconSource: iconElement,
-    fragmentPath: extractPath(linkElement?.querySelector("a")?.href),
+    fragmentPath: extractPath(linkElement?.querySelector('a')?.href),
     fragmentSource: linkElement,
     tabContentStyle: tabContentStyleElement?.textContent.trim(),
     tabContentStyleSource: tabContentStyleElement,
@@ -50,15 +50,15 @@ function extractPanelMetadata(panel) {
 }
 
 function createTabButton(tabElement, id, isActive) {
-  const button = document.createElement("button");
-  button.className = "tabs-tab";
+  const button = document.createElement('button');
+  button.className = 'tabs-tab';
   button.id = `tab-${id}`;
-  button.type = "button";
+  button.type = 'button';
   button.innerHTML = tabElement.innerHTML;
-  button.setAttribute("role", "tab");
-  button.setAttribute("aria-controls", `tabpanel-${id}`);
-  button.setAttribute("aria-selected", String(isActive));
-  button.setAttribute("tabindex", isActive ? "0" : "-1");
+  button.setAttribute('role', 'tab');
+  button.setAttribute('aria-controls', `tabpanel-${id}`);
+  button.setAttribute('aria-selected', String(isActive));
+  button.setAttribute('tabindex', isActive ? '0' : '-1');
   return button;
 }
 
@@ -73,8 +73,8 @@ async function attachIcon(button, iconSource, iconName) {
     iconSource.remove();
     return;
   }
-  svg.classList.add("tabs-tab-icon");
-  svg.setAttribute("aria-hidden", "true");
+  svg.classList.add('tabs-tab-icon');
+  svg.setAttribute('aria-hidden', 'true');
   iconSource.remove();
   button.append(svg);
 }
@@ -82,11 +82,11 @@ async function attachIcon(button, iconSource, iconName) {
 async function loadPanelContent(panel, fragmentPath) {
   const fragment = await loadFragment(fragmentPath);
   if (!fragment) return;
-  const tabContentStyle = panel.getAttribute("tab-content-style");
-  if (tabContentStyle && tabContentStyle === "card-carousel") {
+  const tabContentStyle = panel.getAttribute('tab-content-style');
+  if (tabContentStyle && tabContentStyle === 'card-carousel') {
     const cardsBlock = fragment.querySelector('[data-block-name="cards"]');
-    const cardsWrapper = cardsBlock?.closest(".cards-wrapper");
-    const cardCarouselBlock = buildBlock("card-carousel", cardsBlock.innerHTML);
+    const cardsWrapper = cardsBlock?.closest('.cards-wrapper');
+    const cardCarouselBlock = buildBlock('card-carousel', cardsBlock.innerHTML);
     cardsWrapper.replaceChildren(cardCarouselBlock);
     decorateBlock(cardCarouselBlock);
     await loadBlock(cardCarouselBlock);
@@ -131,14 +131,14 @@ function createTabsState() {
       await loadOnce(panel);
 
       if (activeButton) {
-        activeButton.setAttribute("aria-selected", "false");
-        activeButton.setAttribute("tabindex", "-1");
-        activePanel.setAttribute("aria-hidden", "true");
+        activeButton.setAttribute('aria-selected', 'false');
+        activeButton.setAttribute('tabindex', '-1');
+        activePanel.setAttribute('aria-hidden', 'true');
       }
 
-      button.setAttribute("aria-selected", "true");
-      button.setAttribute("tabindex", "0");
-      panel.setAttribute("aria-hidden", "false");
+      button.setAttribute('aria-selected', 'true');
+      button.setAttribute('tabindex', '0');
+      panel.setAttribute('aria-hidden', 'false');
 
       activeButton = button;
       activePanel = panel;
@@ -183,7 +183,7 @@ async function buildTab(panel, fragment, state) {
 }
 
 function setupClickDelegation(tablist, state) {
-  tablist.addEventListener("click", (event) => {
+  tablist.addEventListener('click', (event) => {
     const button = event.target.closest('button[role="tab"]');
     if (button && tablist.contains(button)) state.activate(button);
   });

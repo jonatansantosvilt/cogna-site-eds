@@ -1,7 +1,6 @@
 const clamp = (value, min, max) => Math.max(min, Math.min(value, max));
 
-const getMaxIndex = ({ totalItems, itemsPerView }) =>
-  Math.max(0, totalItems - itemsPerView);
+const getMaxIndex = ({ totalItems, itemsPerView }) => Math.max(0, totalItems - itemsPerView);
 
 const canGoNext = (state) => state.currentIndex < getMaxIndex(state);
 const canGoPrev = (state) => state.currentIndex > 0;
@@ -63,9 +62,8 @@ const createCarouselController = ({
 
   const dispatch = (reducer) => {
     const nextState = { ...state, ...reducer(state) };
-    const unchanged =
-      nextState.currentIndex === state.currentIndex &&
-      nextState.itemsPerView === state.itemsPerView;
+    const unchanged = nextState.currentIndex === state.currentIndex
+      && nextState.itemsPerView === state.itemsPerView;
     if (unchanged) return;
     state = nextState;
     emit(derive());

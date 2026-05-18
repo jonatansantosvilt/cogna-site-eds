@@ -28,9 +28,7 @@
 }
 
 .card-carousel .carousel-item {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: calc(100% / var(--items-per-view));
+    flex: 0 0 calc(100% / var(--items-per-view));
     box-sizing: border-box;
     padding: 0 calc(var(--gap) / 2);
     display: flex;
