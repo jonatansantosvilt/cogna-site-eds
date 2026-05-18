@@ -1,12 +1,23 @@
 .card-carousel {
     --items-per-view: 1;
     --gap: 1rem;
+    --icon-size: 24px;
+    --button-padding-x: 0.75rem;
+    --button-gap: 0.5rem;
     --transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
 
     position: relative;
 }
 
+.card-carousel .carousel-frame {
+    display: flex;
+    align-items: stretch;
+    gap: var(--button-gap);
+}
+
 .card-carousel .carousel-viewport {
+    flex: 1 1 0;
+    min-width: 0;
     overflow: hidden;
     border-radius: 8px;
     outline: none;
@@ -65,29 +76,26 @@
     font-weight: 600;
 }
 
-.card-carousel .carousel-controls {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1rem;
-}
-
 .card-carousel .carousel-button {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid rgb(0 0 0 / 12%);
+    flex: 0 0 auto;
+    width: calc(var(--icon-size) + var(--button-padding-x) * 2);
+    padding: 0 var(--button-padding-x);
+    align-self: stretch;
+    border-radius: 8px;
     background: #fff;
-    font-size: 1.5rem;
-    line-height: 1;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition:
         background 200ms ease,
-        transform 200ms ease,
         opacity 200ms ease;
+}
+
+.card-carousel .carousel-button svg {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: block;
 }
 
 .card-carousel .carousel-button:disabled {
@@ -102,9 +110,8 @@
 
 .card-carousel .carousel-button:hover:not(:disabled) {
     background: #f4f4f4;
-    transform: translateY(-1px);
 }
 
 .card-carousel .carousel-button:active:not(:disabled) {
-    transform: translateY(0);
+    background: #ebebeb;
 }

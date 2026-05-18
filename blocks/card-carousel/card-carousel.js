@@ -11,12 +11,12 @@ const BREAKPOINTS = [
 ];
 
 const CLASSES = {
+  frame: 'carousel-frame',
   viewport: 'carousel-viewport',
   track: 'carousel-track',
   list: 'carousel-list',
   item: 'carousel-item',
   itemInner: 'carousel-item-inner',
-  controls: 'carousel-controls',
   button: 'carousel-button',
   prev: 'carousel-button--prev',
   next: 'carousel-button--next',
@@ -39,15 +39,6 @@ const createButton = (label, classes, icon) => {
   return btn;
 };
 
-const createControls = () => {
-  const root = document.createElement('div');
-  root.className = CLASSES.controls;
-  const prev = createButton('Previous', CLASSES.prev, ARROW_LEFT.outerHTML);
-  const next = createButton('Next', CLASSES.next, ARROW_RIGHT.outerHTML);
-  root.append(prev, next);
-  return { root, prev, next };
-};
-
 const wrapItem = (li) => {
   const inner = document.createElement('div');
   inner.className = CLASSES.itemInner;
@@ -57,6 +48,9 @@ const wrapItem = (li) => {
 };
 
 const wrapList = (list) => {
+  const frame = document.createElement('div');
+  frame.className = CLASSES.frame;
+
   const viewport = document.createElement('div');
   viewport.className = CLASSES.viewport;
 
@@ -66,10 +60,12 @@ const wrapList = (list) => {
   list.classList.add(CLASSES.list);
   Array.from(list.children).forEach(wrapItem);
 
-  list.parentNode.insertBefore(viewport, list);
+  list.parentNode.insertBefore(frame, list);
   track.appendChild(list);
   viewport.appendChild(track);
-  return { viewport, track };
+  frame.appendChild(viewport);
+
+  return { frame, viewport, track };
 };
 
 const bindRender = (controller, { track, prev, next }) => controller.subscribe((state) => {
@@ -84,22 +80,9 @@ const bindControls = (controller, { prev, next }) => {
   next.addEventListener('click', controller.next);
 };
 
-const bindKeyboard = (controller, viewport) => {
-  viewport.tabIndex = 0;
-  viewport.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      controller.next();
-    }
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      controller.prev();
-    }
-  });
-};
-
 const bindResponsiveness = (controller, element) => {
   const update = () => controller.setItemsPerView(itemsPerViewFor(element.clientWidth));
+
   const observer = new ResizeObserver(update);
   observer.observe(element);
   update();
@@ -110,24 +93,23 @@ export default function decorate(block) {
   const list = block.querySelector('ul');
   if (!list || list.children.length === 0) return;
 
-  const { viewport, track } = wrapList(list);
-  const { root: controls, prev, next } = createControls();
-  block.appendChild(controls);
+  const { frame, viewport, track } = wrapList(list);
+  const prev = createButton('Previous', CLASSES.prev, ARROW_LEFT.outerHTML);
+  const next = createButton('Next', CLASSES.next, ARROW_RIGHT.outerHTML);
+
+  frame.insertBefore(prev, viewport);
+  frame.append(next);
 
   const controller = createCarouselController({
     totalItems: list.children.length,
-    itemsPerView: itemsPerViewFor(block.clientWidth || window.innerWidth),
+    itemsPerView: itemsPerViewFor(viewport.clientWidth || window.innerWidth),
   });
 
   const view = {
-    viewport,
-    track,
-    prev,
-    next,
+    viewport, track, prev, next,
   };
 
   bindRender(controller, view);
   bindControls(controller, view);
-  bindKeyboard(controller, viewport);
-  bindResponsiveness(controller, block);
+  bindResponsiveness(controller, viewport);
 }
