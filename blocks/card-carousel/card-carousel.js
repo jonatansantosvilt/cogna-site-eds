@@ -94,8 +94,8 @@ export default function decorate(block) {
   if (!list || list.children.length === 0) return;
 
   const { frame, viewport, track } = wrapList(list);
-  const prev = createButton('Previous', CLASSES.prev, ARROW_LEFT.outerHTML);
-  const next = createButton('Next', CLASSES.next, ARROW_RIGHT.outerHTML);
+  const prev = createButton('previous', CLASSES.prev, ARROW_LEFT.outerHTML);
+  const next = createButton('next', CLASSES.next, ARROW_RIGHT.outerHTML);
 
   frame.insertBefore(prev, viewport);
   frame.append(next);

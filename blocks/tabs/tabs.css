@@ -17,8 +17,46 @@
     line-height: 1.1;
 }
 
+.tabs.block .tab-list-wrapper {
+    position: relative;
+}
+
+.tabs.block .tabs-list-viewport {
+    flex: 1;
+    min-width: 0;
+}
+
+.tabs.block .tabs-list-button {
+    display: none;
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    transition:
+        opacity 0.2s,
+        background-color 0.2s;
+}
+
+.tabs.block .tabs-list-button svg {
+    width: 20px;
+    height: auto;
+    display: block;
+}
+
+.tabs.block .tabs-list-button:hover:not([disabled]) {
+    background-color: var(--light-color);
+}
+
 .tabs .tabs-list {
     display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     max-width: 100%;
     font-size: var(--body-font-size-xs);
     overflow-x: auto;
@@ -36,8 +74,16 @@
     }
 }
 
+.tabs .tabs-tab-item {
+    flex: 0 0 max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .tabs .tabs-list button {
     flex: 0 0 max-content;
+    width: 100%;
     margin: 0;
     border: 1px solid var(--text-color);
     border-radius: 0;
@@ -87,7 +133,6 @@
     display: none;
 }
 
-/* ===== Variante timeline ===== */
 .tabs.timeline {
     --timeline-line-color: #fabe3d;
     --timeline-marker-color: #8038f1;
@@ -108,8 +153,14 @@
     gap: 1rem;
     padding: 1rem 0 calc(var(--timeline-arrow-size) + 0.5rem);
     overflow: visible;
-    font-size: 1rem; /* tamanho dos anos inativos */
+    font-size: 1rem;
     border: none;
+}
+
+.tabs.timeline .tabs-tab-item {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 
 .tabs.timeline .tabs-list::before {
@@ -143,6 +194,7 @@
 .tabs.timeline .tabs-list button {
     position: relative;
     flex: 0 0 auto;
+    width: auto;
     margin: 0;
     border: none;
     padding: 0 0 calc(var(--timeline-dot-size) + var(--timeline-text-to-dot));
@@ -224,7 +276,7 @@
     }
 }
 
-@media (width < 600px) {
+@media (width <= 639px) {
     .tabs-container {
         padding: 2.5rem 1rem 3rem;
     }
@@ -233,15 +285,71 @@
         margin-bottom: 1.5rem;
     }
 
-    .tabs.timeline {
-        --timeline-active-scale: 1.8;
-        --timeline-arrow-size: 40px;
-        --timeline-dot-size: 10px;
-        --timeline-text-to-dot: 14px;
+    .tabs.block .tab-list-wrapper.is-carousel {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
-    .tabs.timeline .tabs-list {
-        gap: 0.5rem;
-        font-size: 0.75rem;
+    .tabs.block .is-carousel .tabs-list-viewport {
+        overflow: hidden;
+    }
+
+    .tabs.block .is-carousel .tabs-list {
+        overflow: visible;
+        gap: 0;
+        transition: transform 320ms ease;
+        will-change: transform;
+    }
+
+    .tabs.block .is-carousel .tabs-tab-item {
+        flex: 0 0 calc(100% / var(--items-per-view, 1));
+        display: flex;
+        justify-content: center;
+    }
+
+    .tabs.block .is-carousel .tabs-list-button {
+        display: inline-flex;
+    }
+
+    .tabs.block .is-carousel .tabs-list-button[disabled] {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list {
+        padding: 1rem 0;
+        gap: 0;
+        justify-content: initial;
+        align-items: center;
+        font-size: 1.5rem;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list::before,
+    .tabs.timeline.block .is-carousel .tabs-list::after {
+        display: none;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list button {
+        width: 100%;
+        padding: 0.25rem 0.5rem;
+        text-align: center;
+        font-size: inherit;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list button::after {
+        display: none;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list button[aria-selected="true"] {
+        font-size: 2rem;
+    }
+
+    .tabs.timeline.block
+        .is-carousel
+        .tabs-list
+        button[aria-selected="true"]
+        .tabs-tab-icon {
+        display: none;
     }
 }
