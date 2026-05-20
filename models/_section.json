@@ -17,27 +17,47 @@
   ],
   "models": [
     {
-      "id": "section",
-      "fields": [
-        {
-          "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree"
-        },
-        {
-          "component": "multiselect",
-          "name": "style",
-          "label": "Style",
-          "options": [
-            {
-              "name": "Highlight",
-              "value": "highlight"
-            }
-          ]
-        }
+  "id": "section",
+  "fields": [
+    {
+      "component": "select",
+      "name": "backgroundColor",
+      "label": "Cor de Fundo",
+      "options": [
+        { "name": "Branco", "value": "white" },
+        { "name": "Cinza Claro", "value": "light-gray" },
+        { "name": "Roxo", "value": "purple" }
+      ]
+    },
+    {
+      "component": "select",
+      "name": "headingSize",
+      "label": "Tamanho do Título/Texto",
+      "options": [
+        { "name": "Padrão", "value": "default" },
+        { "name": "Grande (Destaque)", "value": "large" }
+      ]
+    },
+    {
+      "component": "select",
+      "name": "headingColor",
+      "label": "Cor do Título",
+      "options": [
+        { "name": "Roxo", "value": "purple" },
+        { "name": "Amarelo", "value": "yellow" },
+        { "name": "Grafite", "value": "dark" }
+      ]
+    },
+    {
+      "component": "multiselect",
+      "name": "style",
+      "label": "Outros Estilos",
+      "options": [
+        { "name": "Texto Centralizado", "value": "text-center" }
       ]
     }
+  ]
+}
   ],
   "filters": [
     {

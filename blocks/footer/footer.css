@@ -1,20 +1,178 @@
-footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+/* =========================================
+   Container Base do Footer
+   ========================================= */
+footer .footer {
+  background-color: #2D3135;
+  color: #FFF;
+  padding: 64px 24px 32px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+footer .footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-purple, #5219A1);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
 }
 
-footer .footer p {
+footer .footer-copyright a,
+footer .footer-legal a {
+  text-decoration: underline;
+  margin-left: 8px; 
+}
+
+footer .footer a:any-link {
+  color: #FFF;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+footer .footer a:hover {
+  opacity: 0.7;
+}
+
+footer .footer-container {
+  max-width: 1248px;
+  margin: 0 auto;
+}
+
+
+footer .footer .section {
+  padding: 0;
   margin: 0;
 }
 
+footer .footer-top .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 64px;
+}
+
+footer .footer-bottom .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer-container {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    grid-template-rows: 1fr auto;
+    gap: 40px 80px;
+  }
+
+  footer .section.footer-top,
+  footer .section.footer-bottom,
+  footer .section.footer-top .default-content-wrapper,
+  footer .section.footer-bottom .default-content-wrapper {
+    display: contents;
+  }
+
+  footer .footer-brand {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    margin: 0; 
+  }
+
+  footer .footer-nav {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  footer .footer-social {
+    grid-column: 3;
+    grid-row: 1;
+    justify-content: flex-end; 
+  }
+
+  footer .footer-copyright {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  footer .footer-legal {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
   }
 }
+
+/* =========================================
+   1. Logótipo
+   ========================================= */
+footer .footer-brand img {
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+  display: block;
+}
+
+/* =========================================
+   2. Menu de Links Central
+   ========================================= */
+footer .footer-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer-nav li {
+  margin-bottom: 16px;
+}
+
+/* =========================================
+   3. Redes Sociais
+   ========================================= */
+footer .footer-social {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+
+footer .footer-social li {
+  display: inline-flex;
+}
+
+
+footer .footer-social a:hover {
+  transform: translateY(-3px);
+  opacity: 1;
+}
+
+footer .footer-social .icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+}
+
+footer .footer-social .icon img {
+  filter: brightness(0) invert(1); 
+}
+
+/* =========================================
+   4. Textos Base (Copyright e Institucional)
+   ========================================= */
+footer .footer-copyright,
+footer .footer-legal {
+  margin: 0;
+  color: #B0B0B0; 
+}
+
+footer .footer-legal {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  justify-content: flex-end; 
+  list-style: none;
+}
+

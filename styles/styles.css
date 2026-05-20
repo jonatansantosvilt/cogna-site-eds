@@ -18,6 +18,11 @@
     --text-color: #131313;
     --link-color: #3b63fb;
     --link-hover-color: #1d3ecf;
+    --color-purple: rgb(82 25 161);
+    --color-yellow: rgb(255 173 1);
+    --color-dark: rgb(45 49 53);
+    --color-bg-light: #eaeeef;
+    --color-bg-purple: #5219a1;
 
     /* fonts */
     --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -274,4 +279,64 @@ main .section.highlight {
     background-color: var(--light-color);
     margin: 0;
     padding: 40px 0;
+}
+
+.section[data-backgroundcolor="light-gray"] {
+    background-color: var(--color-bg-light);
+}
+
+.section[data-backgroundcolor="purple"] {
+    background-color: var(--color-bg-purple);
+    color: white;
+}
+
+.section[data-headingcolor="purple"] .default-content-wrapper h1,
+.section[data-headingcolor="purple"] .default-content-wrapper h2 {
+    color: var(--color-purple);
+}
+
+.section[data-headingcolor="yellow"] .default-content-wrapper h1,
+.section[data-headingcolor="yellow"] .default-content-wrapper h2 {
+    color: var(--color-yellow);
+}
+
+.section[data-headingcolor="dark"] .default-content-wrapper h1,
+.section[data-headingcolor="dark"] .default-content-wrapper h2 {
+    color: var(--color-dark);
+}
+
+.section[data-headingsize="large"] .default-content-wrapper h1,
+.section[data-headingsize="large"] .default-content-wrapper h2 {
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.section[data-headingsize="large"] .default-content-wrapper p {
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--color-dark, rgb(45 49 53));
+    margin-top: 0;
+    max-width: 700px;
+}
+
+@media (width >= 900px) {
+    .section[data-headingsize="large"] .default-content-wrapper h1,
+    .section[data-headingsize="large"] .default-content-wrapper h2 {
+        font-size: 64px;
+        margin-bottom: 24px;
+    }
+
+    .section[data-headingsize="large"] .default-content-wrapper p {
+        font-size: 22px;
+    }
+}
+
+.section.text-center .default-content-wrapper {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 920px;
 }
