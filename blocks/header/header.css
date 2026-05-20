@@ -4,6 +4,7 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 5%); 
 }
 
 header nav {
@@ -54,11 +55,28 @@ header nav p {
   line-height: 1;
 }
 
-header nav a:any-link {
-  color: currentcolor;
+header .nav-brand a {
+  display: block;
+  background-image: url('/icons/cogna-logo.png'); 
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 160px; 
+  height: 48px; 
+  color: transparent !important; 
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-/* hamburger */
+
+header nav a:any-link {
+  color: currentcolor;
+  text-decoration: none;
+}
+
+/* =========================================
+   hamburger
+   ========================================= */
 header nav .nav-hamburger {
   grid-area: hamburger;
   height: 22px;
@@ -139,21 +157,14 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   }
 }
 
-/* brand */
+
 header .nav-brand {
   grid-area: brand;
-  flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
-  line-height: 1;
+
 }
 
-header nav .nav-brand img {
-  width: 128px;
-  height: auto;
-}
 
-/* sections */
+
 header nav .nav-sections {
   grid-area: sections;
   flex: 1 1 auto;
@@ -175,6 +186,16 @@ header nav .nav-sections ul {
 
 header nav .nav-sections ul > li {
   font-weight: 500;
+}
+
+
+header nav .nav-sections ul > li > a {
+  color: var(--color-purple);
+  transition: opacity 0.2s ease;
+}
+
+header nav .nav-sections ul > li > a:hover {
+  opacity: 0.7;
 }
 
 header nav .nav-sections ul > li > ul {
@@ -226,6 +247,7 @@ header nav .nav-sections ul > li > ul > li {
     display: flex;
     gap: 24px;
     margin: 0;
+    justify-content: flex-end;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li {
@@ -247,6 +269,7 @@ header nav .nav-sections ul > li > ul > li {
     padding: 16px;
     background-color: var(--light-color);
     white-space: initial;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
@@ -266,7 +289,6 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* tools */
 header nav .nav-tools {
   grid-area: tools;
 }
