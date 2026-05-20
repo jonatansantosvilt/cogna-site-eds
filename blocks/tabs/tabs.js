@@ -153,16 +153,20 @@ function createTabsState() {
       const panel = buttonToPanel.get(button);
       if (!panel) return;
 
-      await loadOnce(panel);
+      button.setAttribute('aria-selected', 'true');
+      button.setAttribute('tabindex', '0');
 
       if (activeButton) {
         activeButton.setAttribute('aria-selected', 'false');
         activeButton.setAttribute('tabindex', '-1');
+      }
+
+      await loadOnce(panel);
+
+      if (activeButton) {
         activePanel.setAttribute('aria-hidden', 'true');
       }
 
-      button.setAttribute('aria-selected', 'true');
-      button.setAttribute('tabindex', '0');
       panel.setAttribute('aria-hidden', 'false');
 
       activeButton = button;
