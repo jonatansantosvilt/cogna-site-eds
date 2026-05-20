@@ -4,8 +4,6 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
-
-  /* Adiciona uma leve sombra para destacar o header do conteúdo rolado */
   box-shadow: 0 2px 4px rgb(0 0 0 / 5%); 
 }
 
@@ -59,18 +57,12 @@ header nav p {
 
 header .nav-brand a {
   display: block;
-
-  /* ATENÇÃO: Garanta que o ícone exista nesta pasta, ou mude para o caminho correto */
   background-image: url('/icons/cogna-logo.png'); 
   background-position: left center;
   background-repeat: no-repeat;
   background-size: contain;
-  
-  /* Dimensões do logótipo baseadas no seu print */
   width: 160px; 
   height: 48px; 
-  
-  /* Acessibilidade: Esconde o texto autoral ("Cogna Educação") visualmente */
   color: transparent !important; 
   overflow: hidden;
   white-space: nowrap;
@@ -165,19 +157,14 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   }
 }
 
-/* =========================================
-   brand (O seu Logótipo Zero JS)
-   ========================================= */
+
 header .nav-brand {
   grid-area: brand;
 
-  /* flex-basis removido para permitir que a largura do 'a' dite o tamanho */
 }
 
 
-/* =========================================
-   sections (Os seus links de navegação)
-   ========================================= */
+
 header nav .nav-sections {
   grid-area: sections;
   flex: 1 1 auto;
@@ -201,9 +188,9 @@ header nav .nav-sections ul > li {
   font-weight: 500;
 }
 
-/* Cor do texto dos links baseada na paleta da Cogna */
+
 header nav .nav-sections ul > li > a {
-  color: var(--color-purple); /* Ou #2b1b54 caso tenham um roxo mais escuro para links */
+  color: var(--color-purple);
   transition: opacity 0.2s ease;
 }
 
@@ -258,9 +245,9 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections ul {
     display: flex;
-    gap: 24px; /* Ajuste o gap se achar que os links estão muito juntos/separados */
+    gap: 24px;
     margin: 0;
-    justify-content: flex-end; /* Garante que os links colem à direita */
+    justify-content: flex-end;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li {
@@ -282,7 +269,7 @@ header nav .nav-sections ul > li > ul > li {
     padding: 16px;
     background-color: var(--light-color);
     white-space: initial;
-    box-shadow: 0 4px 8px rgb(0 0 0 / 10%); /* Sombra para o dropdown não se misturar */
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
@@ -302,9 +289,6 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* =========================================
-   tools
-   ========================================= */
 header nav .nav-tools {
   grid-area: tools;
 }

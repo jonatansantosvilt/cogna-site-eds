@@ -2,7 +2,7 @@
    Container Base do Footer
    ========================================= */
 footer .footer {
-  background-color: #2D3135; /* Cor de fundo escura do design */
+  background-color: #2D3135;
   color: #FFF;
   padding: 64px 24px 32px;
   font-family: var(--body-font-family);
@@ -41,15 +41,12 @@ footer .footer-container {
   margin: 0 auto;
 }
 
-/* Esconde as margens padrão injetadas pelo EDS nas sections */
+
 footer .footer .section {
   padding: 0;
   margin: 0;
 }
 
-/* =========================================
-   Layout Mobile (Flexbox Padrão)
-   ========================================= */
 footer .footer-top .default-content-wrapper {
   display: flex;
   flex-direction: column;
@@ -63,20 +60,14 @@ footer .footer-bottom .default-content-wrapper {
   gap: 24px;
 }
 
-/* =========================================
-   Layout Desktop (Grid 2D Avançado)
-   ========================================= */
 @media (width >= 900px) {
-  /* O container principal vira o Grid Mestre */
   footer .footer-container {
     display: grid;
     grid-template-columns: 160px 1fr auto;
-    grid-template-rows: 1fr auto; /* Cria 2 Linhas (Topo e Base) */
-    gap: 40px 80px; /* Espaço entre o final do menu e o copyright */
+    grid-template-rows: 1fr auto;
+    gap: 40px 80px;
   }
 
-  /* "Apaga" as divs estruturais (apenas visualmente) para que 
-     o Grid Mestre controle os elementos que estão lá dentro */
   footer .section.footer-top,
   footer .section.footer-bottom,
   footer .section.footer-top .default-content-wrapper,
@@ -84,10 +75,9 @@ footer .footer-bottom .default-content-wrapper {
     display: contents;
   }
 
-  /* Posicionamento no Grid Mestre */
   footer .footer-brand {
     grid-column: 1;
-    grid-row: 1 / span 2; /* O Logo funde as linhas 1 e 2! */
+    grid-row: 1 / span 2;
     margin: 0; 
   }
 
@@ -105,13 +95,13 @@ footer .footer-bottom .default-content-wrapper {
   footer .footer-copyright {
     grid-column: 2;
     grid-row: 2;
-    align-self: end; /* Cola o texto exatamente na linha de base do logo */
+    align-self: end;
   }
 
   footer .footer-legal {
     grid-column: 3;
     grid-row: 2;
-    align-self: end; /* Cola os links na mesma linha do copyright */
+    align-self: end;
   }
 }
 
@@ -149,7 +139,6 @@ footer .footer-social {
   gap: 16px;
 }
 
-/* Estiliza os botões circulares roxos das redes sociais */
 footer .footer-social li {
   display: inline-flex;
 }
@@ -160,7 +149,6 @@ footer .footer-social a:hover {
   opacity: 1;
 }
 
-/* Ícones dentro dos botões (Brancos) */
 footer .footer-social .icon {
   width: 20px;
   height: 20px;

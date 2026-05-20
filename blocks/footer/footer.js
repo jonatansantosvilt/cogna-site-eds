@@ -10,7 +10,6 @@ export default async function decorate(block) {
   const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
   const fragment = await loadFragment(footerPath);
 
-  // Limpa o bloco padrão
   block.textContent = '';
 
   const footer = document.createElement('div');
@@ -18,7 +17,6 @@ export default async function decorate(block) {
 
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
-  // Captura as duas secções que o autor criou
   const sections = footer.querySelectorAll('.section');
 
   // =========================================
@@ -27,8 +25,6 @@ export default async function decorate(block) {
   if (sections[0]) {
     sections[0].classList.add('footer-top');
 
-    // O Universal Editor embrulha o conteúdo na classe .default-content-wrapper
-    // Vamos pegar os filhos diretos (A imagem, a lista de links e a lista social)
     const elements = sections[0].querySelectorAll('.default-content-wrapper > *');
 
     if (elements[0]) elements[0].classList.add('footer-brand');
