@@ -261,8 +261,8 @@ function setupTabsCarousel({
     nextButton.disabled = !carouselState.canGoNext;
   };
 
-  prevButton.addEventListener('click', () => controller.prev());
-  nextButton.addEventListener('click', () => controller.next());
+  prevButton.addEventListener('click', controller.prev);
+  nextButton.addEventListener('click', controller.next);
 
   const mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
   let unsubscribe = null;

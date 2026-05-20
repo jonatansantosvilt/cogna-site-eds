@@ -152,6 +152,7 @@
     width: var(--icon-size);
     height: auto;
     display: block;
+    color: #7433da;
 }
 
 .card-carousel .carousel-button:disabled {

@@ -29,11 +29,12 @@
 .tabs.block .tabs-list-button {
     display: none;
     flex: 0 0 auto;
-    width: 50px;
-    height: 50px;
+    width: 36px;
+    height: 36px;
     align-items: center;
     justify-content: center;
     padding: 0;
+    margin-top: 1rem;
     background-color: transparent;
     color: var(--text-color);
     cursor: pointer;
@@ -46,10 +47,7 @@
     width: 20px;
     height: auto;
     display: block;
-}
-
-.tabs.block .tabs-list-button:hover:not([disabled]) {
-    background-color: var(--light-color);
+    color: #fabe3d;
 }
 
 .tabs .tabs-list {
@@ -285,10 +283,20 @@
         margin-bottom: 1.5rem;
     }
 
+    .tabs.timeline {
+        --timeline-active-scale: 1.8;
+        --timeline-arrow-size: 40px;
+        --timeline-dot-size: 10px;
+        --timeline-text-to-dot: 14px;
+    }
+
+    .tabs.timeline .tabs-list {
+        font-size: 0.75rem;
+    }
+
     .tabs.block .tab-list-wrapper.is-carousel {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
     }
 
     .tabs.block .is-carousel .tabs-list-viewport {
@@ -317,12 +325,22 @@
         cursor: not-allowed;
     }
 
-    .tabs.timeline.block .is-carousel .tabs-list {
-        padding: 1rem 0;
-        gap: 0;
-        justify-content: initial;
-        align-items: center;
-        font-size: 1.5rem;
+    .tabs.timeline.block .is-carousel .tabs-list-viewport {
+        position: relative;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list-viewport::before {
+        content: "";
+        position: absolute;
+        inset-inline: 0;
+        bottom: calc(
+            var(--timeline-arrow-size) + 0.5rem +
+                (var(--timeline-dot-size) / 2) - 1.5px
+        );
+        height: 3px;
+        background-color: var(--timeline-line-color);
+        z-index: 0;
+        pointer-events: none;
     }
 
     .tabs.timeline.block .is-carousel .tabs-list::before,
@@ -330,19 +348,16 @@
         display: none;
     }
 
+    .tabs.timeline.block .is-carousel .tabs-list {
+        gap: 0;
+        justify-content: initial;
+    }
+
     .tabs.timeline.block .is-carousel .tabs-list button {
         width: 100%;
-        padding: 0.25rem 0.5rem;
+        padding: 0 0.25rem
+            calc(var(--timeline-dot-size) + var(--timeline-text-to-dot));
         text-align: center;
-        font-size: inherit;
-    }
-
-    .tabs.timeline.block .is-carousel .tabs-list button::after {
-        display: none;
-    }
-
-    .tabs.timeline.block .is-carousel .tabs-list button[aria-selected="true"] {
-        font-size: 2rem;
     }
 
     .tabs.timeline.block
@@ -350,6 +365,6 @@
         .tabs-list
         button[aria-selected="true"]
         .tabs-tab-icon {
-        display: none;
+        transform: translateX(-110%);
     }
 }
