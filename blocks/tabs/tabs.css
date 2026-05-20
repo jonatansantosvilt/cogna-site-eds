@@ -9,14 +9,6 @@
     margin: 0 auto !important;
 }
 
-.tabs-container h2 {
-    font-size: clamp(2.75rem, 3vw, 2.75rem);
-    color: #5219a1;
-    margin: 0 0 2.5rem;
-    font-weight: 800;
-    line-height: 1.1;
-}
-
 .tabs.block .tab-list-wrapper {
     position: relative;
 }
