@@ -1,0 +1,362 @@
+.tabs-container {
+    background-color: #eaeeef;
+    padding: 4rem 2rem 5rem;
+}
+
+.tabs-container > .default-content-wrapper,
+.tabs-container > .tabs-wrapper {
+    max-width: 1280px;
+    margin: 0 auto !important;
+}
+
+.tabs.block .tab-list-wrapper {
+    position: relative;
+}
+
+.tabs.block .tabs-list-viewport {
+    flex: 1;
+    min-width: 0;
+}
+
+.tabs.block .tabs-list-button {
+    display: none;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-top: 1rem;
+    background-color: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    transition:
+        opacity 0.2s,
+        background-color 0.2s;
+}
+
+.tabs.block .tabs-list-button svg {
+    width: 20px;
+    height: auto;
+    display: block;
+    color: #fabe3d;
+}
+
+.tabs .tabs-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    font-size: var(--body-font-size-xs);
+    overflow-x: auto;
+}
+
+@media (width >= 600px) {
+    .tabs .tabs-list {
+        font-size: var(--body-font-size-s);
+    }
+}
+
+@media (width >= 900px) {
+    .tabs .tabs-list {
+        font-size: var(--body-font-size-m);
+    }
+}
+
+.tabs .tabs-tab-item {
+    flex: 0 0 max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tabs .tabs-list button {
+    flex: 0 0 max-content;
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--text-color);
+    border-radius: 0;
+    padding: 0.5em 1em;
+    background-color: var(--light-color);
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-weight: bold;
+    line-height: unset;
+    text-align: initial;
+    text-overflow: unset;
+    overflow: unset;
+    white-space: unset;
+    cursor: pointer;
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+}
+
+.tabs .tabs-list button p {
+    margin: 0;
+}
+
+.tabs .tabs-list button:hover {
+    background-color: var(--background-color);
+}
+
+.tabs .tabs-list button:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.tabs .tabs-list button[aria-selected="true"] {
+    border-bottom-color: var(--background-color);
+    background-color: var(--background-color);
+    cursor: default;
+}
+
+.tabs .tabs-panel {
+    margin-top: -1px;
+    padding: 24px;
+    border: 1px solid var(--text-color);
+    overflow: auto;
+}
+
+.tabs .tabs-panel[aria-hidden="true"] {
+    display: none;
+}
+
+.tabs.timeline {
+    --timeline-line-color: #fabe3d;
+    --timeline-marker-color: #8038f1;
+    --timeline-label-color: #8038f1;
+    --timeline-dot-size: 14px;
+    --timeline-arrow-size: 80px;
+    --timeline-text-to-dot: 18px;
+    --timeline-active-scale: 2.75;
+
+    width: 100%;
+}
+
+.tabs.timeline .tabs-list {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    padding: 1rem 0 calc(var(--timeline-arrow-size) + 0.5rem);
+    overflow: visible;
+    font-size: 1rem;
+    border: none;
+}
+
+.tabs.timeline .tabs-tab-item {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.tabs.timeline .tabs-list::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0 12px;
+    bottom: calc(
+        var(--timeline-arrow-size) + 0.5rem + (var(--timeline-dot-size) / 2) -
+            1.5px
+    );
+    height: 3px;
+    background-color: var(--timeline-line-color);
+    z-index: 0;
+}
+
+.tabs.timeline .tabs-list::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: calc(
+        var(--timeline-arrow-size) + 0.5rem + (var(--timeline-dot-size) / 2) -
+            6.5px
+    );
+    width: 0;
+    height: 0;
+    border-block: 6px solid transparent;
+    border-inline-start: 12px solid var(--timeline-line-color);
+    z-index: 1;
+}
+
+.tabs.timeline .tabs-list button {
+    position: relative;
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0;
+    border: none;
+    padding: 0 0 calc(var(--timeline-dot-size) + var(--timeline-text-to-dot));
+    background: transparent;
+    color: var(--timeline-label-color);
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.tabs.timeline .tabs-list button p {
+    margin: 0;
+}
+
+.tabs.timeline .tabs-list button::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: var(--timeline-dot-size);
+    height: var(--timeline-dot-size);
+    border-radius: 50%;
+    background-color: var(--timeline-marker-color);
+    transform: translateX(-50%);
+    transition: transform 0.2s;
+}
+
+.tabs.timeline .tabs-list button:hover::after,
+.tabs.timeline .tabs-list button:focus-visible::after {
+    transform: translateX(-50%) scale(1.3);
+}
+
+.tabs.timeline .tabs-list button:focus-visible {
+    outline: none;
+}
+
+.tabs.timeline .tabs-list button[aria-selected="true"] {
+    font-size: calc(1em * var(--timeline-active-scale));
+    cursor: default;
+}
+
+.tabs .tabs-list button .tabs-tab-icon {
+    display: none;
+}
+
+.tabs.timeline .tabs-list button[aria-selected="true"] .tabs-tab-icon {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: var(--timeline-arrow-size);
+    height: var(--timeline-arrow-size);
+    margin-top: 6px;
+    color: var(--timeline-line-color);
+    transform: translateX(-95%);
+    pointer-events: none;
+}
+
+.tabs.timeline .tabs-panel {
+    margin-top: 0.5rem;
+    border: none;
+    padding: 0;
+}
+
+@media (width < 900px) {
+    .tabs-container {
+        padding: 3rem 1.5rem 4rem;
+    }
+
+    .tabs.timeline {
+        --timeline-active-scale: 2.2;
+        --timeline-arrow-size: 60px;
+        --timeline-dot-size: 12px;
+    }
+
+    .tabs.timeline .tabs-list {
+        font-size: 0.875rem;
+    }
+}
+
+@media (width <= 639px) {
+    .tabs-container {
+        padding: 2.5rem 1rem 3rem;
+    }
+
+    .tabs-container h2 {
+        margin-bottom: 1.5rem;
+    }
+
+    .tabs.timeline {
+        --timeline-active-scale: 1.8;
+        --timeline-arrow-size: 40px;
+        --timeline-dot-size: 10px;
+        --timeline-text-to-dot: 14px;
+    }
+
+    .tabs.timeline .tabs-list {
+        font-size: 0.75rem;
+    }
+
+    .tabs.block .tab-list-wrapper.is-carousel {
+        display: flex;
+        align-items: center;
+    }
+
+    .tabs.block .is-carousel .tabs-list-viewport {
+        overflow: hidden;
+    }
+
+    .tabs.block .is-carousel .tabs-list {
+        overflow: visible;
+        gap: 0;
+        transition: transform 320ms ease;
+        will-change: transform;
+    }
+
+    .tabs.block .is-carousel .tabs-tab-item {
+        flex: 0 0 calc(100% / var(--items-per-view, 1));
+        display: flex;
+        justify-content: center;
+    }
+
+    .tabs.block .is-carousel .tabs-list-button {
+        display: inline-flex;
+    }
+
+    .tabs.block .is-carousel .tabs-list-button[disabled] {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list-viewport {
+        position: relative;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list-viewport::before {
+        content: "";
+        position: absolute;
+        inset-inline: 0;
+        bottom: calc(
+            var(--timeline-arrow-size) + 0.5rem +
+                (var(--timeline-dot-size) / 2) - 1.5px
+        );
+        height: 3px;
+        background-color: var(--timeline-line-color);
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list::before,
+    .tabs.timeline.block .is-carousel .tabs-list::after {
+        display: none;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list {
+        gap: 0;
+        justify-content: initial;
+    }
+
+    .tabs.timeline.block .is-carousel .tabs-list button {
+        width: 100%;
+        padding: 0 0.25rem
+            calc(var(--timeline-dot-size) + var(--timeline-text-to-dot));
+        text-align: center;
+    }
+
+    .tabs.timeline.block
+        .is-carousel
+        .tabs-list
+        button[aria-selected="true"]
+        .tabs-tab-icon {
+        transform: translateX(-110%);
+    }
+}

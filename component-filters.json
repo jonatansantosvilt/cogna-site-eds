@@ -15,7 +15,16 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "stats-cards",
+      "tabs",
+      "card-carousel"
+    ]
+  },
+  {
+    "id": "card-carousel",
+    "components": [
+      "card-carousel-item"
     ]
   },
   {
@@ -43,6 +52,12 @@
     "id": "stats-cards",
     "components": [
       "stats-card"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tab"
     ]
   }
 ]

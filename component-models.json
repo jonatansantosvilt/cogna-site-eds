@@ -189,6 +189,42 @@
     ]
   },
   {
+    "id": "card-carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "card-carousel",
+    "fields": []
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -199,10 +235,23 @@
         "multi": false
       },
       {
-        "component": "richtext",
-        "name": "text",
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
         "value": "",
-        "label": "Text",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Description",
         "valueType": "string"
       }
     ]
@@ -289,6 +338,77 @@
         "name": "description",
         "label": "Descrição (Ex: de alunos impactados)",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tabs",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Timeline",
+            "value": "timeline"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tab",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Tab Title",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "icon",
+        "label": "Tab Icon",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Cogna Arrow",
+            "value": "cogna-arrow"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "tab-content-style",
+        "label": "Tab Content Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Card Carousel",
+            "value": "card-carousel"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "content",
+        "label": "Tab Content",
+        "valueType": "string",
+        "multi": false
       }
     ]
   }

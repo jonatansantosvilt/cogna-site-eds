@@ -70,7 +70,10 @@
         "hero",
         "cards",
         "columns",
-        "fragment"
+        "fragment",
+        "stats-cards",
+        "tabs",
+        "card-carousel"
       ]
     }
   ]
