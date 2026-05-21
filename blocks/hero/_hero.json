@@ -24,8 +24,9 @@
           "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Image",
-          "multi": false
+          "label": "Imagem (responsiva)",
+          "description": "Adicione até 3 imagens para tornar o hero responsivo. A ordem define o breakpoint: 1ª = desktop, 2ª = tablet, 3ª = mobile. Se autorar apenas uma imagem, ela será usada em todos os breakpoints.",
+          "multi": true
         },
         {
           "component": "text",
