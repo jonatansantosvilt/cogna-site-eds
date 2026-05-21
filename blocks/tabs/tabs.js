@@ -7,6 +7,7 @@ import {
 import loadSVG from '../../scripts/loader.js';
 import createCarouselController from '../../scripts/carousel-controller.js';
 import { loadFragment } from '../fragment/fragment.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const ARROW_LEFT = await loadSVG('icons/carousel-arrow-left');
 const ARROW_RIGHT = await loadSVG('icons/carousel-arrow-right');
@@ -75,16 +76,19 @@ function extractPanelMetadata(panel) {
   };
 }
 
-function createTabButton(tabElement, id, isActive) {
+function createTabButton(panel, tabElement, id, isActive) {
   const button = document.createElement('button');
   button.className = 'tabs-tab';
   button.id = `tab-${id}`;
   button.type = 'button';
-  button.innerHTML = tabElement.innerHTML;
   button.setAttribute('role', 'tab');
   button.setAttribute('aria-controls', `tabpanel-${id}`);
   button.setAttribute('aria-selected', String(isActive));
   button.setAttribute('tabindex', isActive ? '0' : '-1');
+  moveInstrumentation(panel, button);
+  const titleP = tabElement.firstElementChild;
+  if (titleP) button.append(titleP);
+
   return button;
 }
 
@@ -182,32 +186,23 @@ async function buildTab(panel, state) {
   const id = getTabId(tabElement);
   if (!id) return null;
 
-  const {
-    iconName,
-    iconSource,
-    fragmentPath,
-    fragmentSource,
-    tabContentStyle,
-    tabContentStyleSource,
-  } = extractPanelMetadata(panel);
-
-  if (tabContentStyleSource) tabContentStyleSource.remove();
+  const meta = extractPanelMetadata(panel);
+  if (meta.tabContentStyleSource) meta.tabContentStyleSource.remove();
 
   const isActive = state.buttons.length === 0;
-  decorateTabPanel(panel, id, isActive, tabContentStyle);
+  decorateTabPanel(panel, id, isActive, meta.tabContentStyle);
 
-  const button = createTabButton(tabElement, id, isActive);
+  const button = createTabButton(panel, tabElement, id, isActive);
 
-  const loader = fragmentPath
-    ? () => loadPanelContent(panel, fragmentPath)
+  const loader = meta.fragmentPath
+    ? () => loadPanelContent(panel, meta.fragmentPath)
     : null;
-
   state.register(button, panel, loader, isActive);
+
   tabElement.remove();
+  if (meta.fragmentSource) meta.fragmentSource.remove();
 
-  if (fragmentSource) fragmentSource.remove();
-
-  await attachIcon(button, iconSource, iconName);
+  await attachIcon(button, meta.iconSource, meta.iconName);
   return button;
 }
 
