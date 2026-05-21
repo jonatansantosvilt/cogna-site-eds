@@ -292,15 +292,30 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Imagem (responsiva)",
-        "description": "Adicione até 3 imagens para tornar o hero responsivo. A ordem define o breakpoint: 1ª = desktop, 2ª = tablet, 3ª = mobile. Se autorar apenas uma imagem, ela será usada em todos os breakpoints.",
-        "multi": true
+        "label": "Imagem desktop",
+        "description": "Imagem principal (≥ 900px). Obrigatória.",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "imageTablet",
+        "label": "Imagem tablet (opcional)",
+        "description": "Exibida entre 600px e 899px. Se não autorada, usa a de desktop."
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "imageMobile",
+        "label": "Imagem mobile (opcional)",
+        "description": "Exibida abaixo de 600px. Se não autorada, usa a de desktop."
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
         "label": "Alt",
+        "description": "Aplicado em todos os breakpoints.",
         "value": ""
       },
       {
