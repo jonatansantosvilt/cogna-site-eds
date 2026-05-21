@@ -4,7 +4,7 @@
 footer .footer {
   background-color: #2D3135;
   color: #FFF;
-  padding: 64px 24px 32px;
+  padding: 40px 24px 32px;
   font-family: var(--body-font-family);
   font-size: 14px;
 }
@@ -41,17 +41,19 @@ footer .footer-container {
   margin: 0 auto;
 }
 
-
 footer .footer .section {
   padding: 0;
   margin: 0;
 }
 
+/* =========================================
+   Layout Mobile (Empilhado / Stacked)
+   ========================================= */
 footer .footer-top .default-content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  margin-bottom: 64px;
+  gap: 24px; 
+  margin-bottom: 40px; 
 }
 
 footer .footer-bottom .default-content-wrapper {
@@ -60,7 +62,92 @@ footer .footer-bottom .default-content-wrapper {
   gap: 24px;
 }
 
+/* 1. Logótipo (Mobile) */
+footer .footer-brand {
+  margin: 0; 
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  height: 60px;
+}
+
+footer .footer-brand picture {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+}
+
+footer .footer-brand img {
+  display: block;
+  transform: rotate(90deg);
+  margin-left: 50px;
+  height: 140px; 
+  width: auto;
+  max-width: none;
+}
+
+footer .footer-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer-nav li {
+  margin-bottom: 12px; 
+}
+
+footer .footer-social {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  justify-content: center; 
+}
+
+footer .footer-social li {
+  display: inline-flex;
+}
+
+footer .footer-social a:hover {
+  transform: translateY(-3px);
+  opacity: 1;
+}
+
+footer .footer-social .icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+}
+
+footer .footer-social .icon img {
+  filter: brightness(0) invert(1); 
+}
+
+footer .footer-copyright,
+footer .footer-legal {
+  margin: 0;
+  color: #B0B0B0; 
+  text-align: center; 
+}
+
+footer .footer-legal {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px 24px;
+  margin: 0;
+  justify-content: center; 
+  list-style: none;
+}
+
+/* =========================================
+   Layout Desktop (Grid 2D Compartilhado)
+   ========================================= */
 @media (width >= 900px) {
+  footer .footer {
+    padding: 64px 24px 32px;
+  }
+
   footer .footer-container {
     display: grid;
     grid-template-columns: 160px 1fr auto;
@@ -78,7 +165,21 @@ footer .footer-bottom .default-content-wrapper {
   footer .footer-brand {
     grid-column: 1;
     grid-row: 1 / span 2;
-    margin: 0; 
+    margin: 0;
+    display: block;
+    height: auto;
+  }
+
+  footer .footer-brand picture {
+    display: block;
+  }
+
+  footer .footer-brand img {
+    transform: none;
+    margin-left: 0;
+    width: 100%;
+    max-width: 160px; 
+    height: auto;
   }
 
   footer .footer-nav {
@@ -89,90 +190,20 @@ footer .footer-bottom .default-content-wrapper {
   footer .footer-social {
     grid-column: 3;
     grid-row: 1;
-    justify-content: flex-end; 
+    justify-content: flex-end;
   }
 
   footer .footer-copyright {
     grid-column: 2;
     grid-row: 2;
     align-self: end;
+    text-align: left;
   }
 
   footer .footer-legal {
     grid-column: 3;
     grid-row: 2;
     align-self: end;
+    justify-content: flex-end;
   }
 }
-
-/* =========================================
-   1. Logótipo
-   ========================================= */
-footer .footer-brand img {
-  width: 100%;
-  max-width: 160px;
-  height: auto;
-  display: block;
-}
-
-/* =========================================
-   2. Menu de Links Central
-   ========================================= */
-footer .footer-nav {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-footer .footer-nav li {
-  margin-bottom: 16px;
-}
-
-/* =========================================
-   3. Redes Sociais
-   ========================================= */
-footer .footer-social {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  gap: 16px;
-}
-
-footer .footer-social li {
-  display: inline-flex;
-}
-
-
-footer .footer-social a:hover {
-  transform: translateY(-3px);
-  opacity: 1;
-}
-
-footer .footer-social .icon {
-  width: 20px;
-  height: 20px;
-  display: flex;
-}
-
-footer .footer-social .icon img {
-  filter: brightness(0) invert(1); 
-}
-
-/* =========================================
-   4. Textos Base (Copyright e Institucional)
-   ========================================= */
-footer .footer-copyright,
-footer .footer-legal {
-  margin: 0;
-  color: #B0B0B0; 
-}
-
-footer .footer-legal {
-  display: flex;
-  gap: 24px;
-  margin: 0;
-  justify-content: flex-end; 
-  list-style: none;
-}
-
