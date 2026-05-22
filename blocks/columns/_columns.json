@@ -33,6 +33,14 @@
           "name": "rows",
           "value": "",
           "label": "Rows"
+        },
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Outros Estilos",
+          "options": [
+            { "name": "Banner de Inovação", "value": "innovation" }
+          ]
         }
       ]
     }
