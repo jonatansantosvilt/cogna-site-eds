@@ -272,6 +272,17 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      },
+      {
+        "component": "multiselect",
+        "name": "style",
+        "label": "Outros Estilos",
+        "options": [
+          {
+            "name": "Banner de Inovação",
+            "value": "innovation"
+          }
+        ]
       }
     ]
   },
