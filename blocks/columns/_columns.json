@@ -36,7 +36,7 @@
         },
         {
           "component": "multiselect",
-          "name": "style",
+          "name": "classes",
           "label": "Outros Estilos",
           "options": [
             { "name": "Banner de Inovação", "value": "innovation" }
