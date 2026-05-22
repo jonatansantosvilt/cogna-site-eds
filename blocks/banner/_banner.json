@@ -21,9 +21,11 @@
       "id": "banner",
       "fields": [
         {
-          "component": "image",
+          "component": "reference",
+          "valueType": "string",
           "name": "image",
-          "label": "Imagem de Fundo"
+          "label": "Imagem de fundo",
+          "multi": false
         },
         {
           "component": "richtext",
