@@ -189,6 +189,10 @@
     ]
   },
   {
+    "id": "banner",
+    "fields": []
+  },
+  {
     "id": "card-carousel-item",
     "fields": [
       {
