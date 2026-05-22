@@ -167,10 +167,6 @@ pre {
     white-space: pre;
 }
 
-main > div {
-    margin: 40px 16px;
-}
-
 input,
 textarea,
 select,
@@ -252,10 +248,6 @@ main img {
     width: 100%;
 }
 
-/* sections */
-main > .section {
-    margin: 40px 0;
-}
 
 main > .section > div {
     max-width: 1200px;
@@ -290,30 +282,30 @@ main .section.highlight {
     color: white;
 }
 
-.section[data-headingcolor="purple"] .default-content-wrapper h1,
-.section[data-headingcolor="purple"] .default-content-wrapper h2 {
+.section[data-headingcolor="purple"] h1,
+.section[data-headingcolor="purple"] h2 {
     color: var(--color-purple);
 }
 
-.section[data-headingcolor="yellow"] .default-content-wrapper h1,
-.section[data-headingcolor="yellow"] .default-content-wrapper h2 {
+.section[data-headingcolor="yellow"] h1,
+.section[data-headingcolor="yellow"] h2 {
     color: var(--color-yellow);
 }
 
-.section[data-headingcolor="dark"] .default-content-wrapper h1,
-.section[data-headingcolor="dark"] .default-content-wrapper h2 {
+.section[data-headingcolor="dark"] h1,
+.section[data-headingcolor="dark"] h2 {
     color: var(--color-dark);
 }
 
-.section[data-headingsize="large"] .default-content-wrapper h1,
-.section[data-headingsize="large"] .default-content-wrapper h2 {
+.section[data-headingsize="large"] h1,
+.section[data-headingsize="large"] h2 {
     font-size: 36px;
     line-height: 1.2;
     font-weight: 800;
     margin-bottom: 16px;
 }
 
-.section[data-headingsize="large"] .default-content-wrapper p {
+.section[data-headingsize="large"] p {
     font-size: 20px;
     line-height: 1.4;
     color: var(--color-dark, rgb(45 49 53));
@@ -322,13 +314,13 @@ main .section.highlight {
 }
 
 @media (width >= 900px) {
-    .section[data-headingsize="large"] .default-content-wrapper h1,
-    .section[data-headingsize="large"] .default-content-wrapper h2 {
+    .section[data-headingsize="large"] h1,
+    .section[data-headingsize="large"] h2 {
         font-size: 64px;
         margin-bottom: 24px;
     }
 
-    .section[data-headingsize="large"] .default-content-wrapper p {
+    .section[data-headingsize="large"] p {
         font-size: 22px;
     }
 }
