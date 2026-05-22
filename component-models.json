@@ -330,14 +330,30 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image",
-        "multi": false
+        "label": "Imagem desktop",
+        "description": "Imagem principal (≥ 900px). Obrigatória.",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "imageTablet",
+        "label": "Imagem tablet (opcional)",
+        "description": "Exibida entre 600px e 899px. Se não autorada, usa a de desktop."
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "imageMobile",
+        "label": "Imagem mobile (opcional)",
+        "description": "Exibida abaixo de 600px. Se não autorada, usa a de desktop."
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
         "label": "Alt",
+        "description": "Aplicado em todos os breakpoints.",
         "value": ""
       },
       {
