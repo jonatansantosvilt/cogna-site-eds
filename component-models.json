@@ -197,24 +197,19 @@
         "label": "Imagem de Fundo"
       },
       {
-        "component": "text",
-        "name": "title",
-        "label": "Título do Banner (Opcional)"
+        "component": "richtext",
+        "name": "content",
+        "label": "Conteúdo (Título e Texto)"
       },
       {
         "component": "text",
-        "name": "text",
-        "label": "Texto / Descrição (Opcional)"
+        "name": "url",
+        "label": "Link do Botão"
       },
       {
         "component": "text",
-        "name": "buttonLink",
-        "label": "Link do Botão (Opcional)"
-      },
-      {
-        "component": "text",
-        "name": "buttonText",
-        "label": "Texto do Botão (Opcional)"
+        "name": "action",
+        "label": "Texto do Botão"
       }
     ]
   },
