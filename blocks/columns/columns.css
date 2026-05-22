@@ -57,16 +57,14 @@
 .columns.innovation > div > div:first-child {
   display: grid;
   grid-template-columns: 60px 1fr;
-  column-gap: 24px;
-  row-gap: 24px;
+  gap: 24px;
   align-items: center;
 }
 
 @media (width >= 900px) {
   .columns.innovation > div > div:first-child {
     grid-template-columns: 80px 1fr; 
-    column-gap: 32px;
-    row-gap: 32px;
+    gap: 32px;
   }
 }
 
@@ -86,6 +84,13 @@
 .columns.innovation > div > div:first-child > :nth-child(2) {
   grid-column: 1 / span 2;
   margin: 0;
+}
+
+.columns.innovation > div > div:last-child img {
+  max-width: 500px; 
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .columns.innovation > div > div:first-child > :nth-child(3) {
@@ -127,9 +132,3 @@
   justify-content: center;
 }
 
-.columns.innovation > div > div:last-child img {
-  max-width: 500px; 
-  width: 100%;
-  height: auto;
-  display: block;
-}
