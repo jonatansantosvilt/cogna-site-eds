@@ -18,8 +18,13 @@
       "fragment",
       "stats-cards",
       "tabs",
-      "card-carousel"
+      "card-carousel",
+      "banner"
     ]
+  },
+  {
+    "id": "banner",
+    "components": []
   },
   {
     "id": "card-carousel",

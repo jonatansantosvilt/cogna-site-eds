@@ -1,0 +1,165 @@
+
+.section.banner-container {
+  padding: 0;
+  max-width: 100%;
+}
+
+.section.banner-container > .banner-wrapper {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  background-color: #431d82; 
+  width: 100%;
+}
+
+.banner .banner-bg {
+  width: 100%;
+  aspect-ratio: 4 / 3; 
+  overflow: hidden;
+}
+
+.banner .banner-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: calc(100% - 50px) center; 
+  display: block;
+}
+
+.banner .banner-content {
+  padding: 40px 24px;
+  text-align: left; 
+  display: flex;
+  flex-direction: column;
+}
+
+.banner .banner-content h2 {
+  color: #FBB03B; 
+  font-size: 40px;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.banner .banner-content p {
+  color: #FFF;
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 32px;
+}
+
+.banner .banner-content .button-container {
+  margin: 0;
+}
+
+.banner .banner-content a.button.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #FBB03B;
+  color: #431d82;
+  border: none;
+  border-radius: 40px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.banner .banner-content a.button.primary::after {
+  content: '▶';
+  font-size: 12px;
+}
+
+@media (width >= 900px) {
+  .banner {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    min-height: 600px;
+    background-color: transparent; 
+  }
+
+  .banner .banner-bg,
+  .banner .banner-content {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .banner .banner-bg {
+    aspect-ratio: unset; 
+  }
+
+  .banner .banner-bg img {
+    object-position: right center; 
+  }
+
+  .banner .banner-content {
+    padding: 0;
+    max-width: 440px; 
+    margin-left: max(5%, calc((100vw - 1248px) / 2));
+    justify-content: center; 
+  }
+
+  .banner .banner-content h2 {
+    font-size: 56px;
+  }
+
+  .banner .banner-content p {
+    font-size: 20px;
+  }
+}
+
+dialog.youtube-modal {
+  padding: 0;
+  border: none;
+  background: transparent;
+  width: 90vw;
+  max-width: 900px;
+  overflow: visible;
+}
+
+dialog.youtube-modal::backdrop {
+  background: rgb(0 0 0 / 85%);
+  backdrop-filter: blur(4px);
+}
+
+.youtube-modal .modal-content {
+  position: relative;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.youtube-modal .close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: #FFF;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.youtube-modal .iframe-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.youtube-modal .iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

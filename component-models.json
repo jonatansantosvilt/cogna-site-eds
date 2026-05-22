@@ -189,6 +189,33 @@
     ]
   },
   {
+    "id": "banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Imagem de fundo",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "label": "Conteúdo (Título e Texto)"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "label": "Link do Botão"
+      },
+      {
+        "component": "text",
+        "name": "action",
+        "label": "Texto do Botão"
+      }
+    ]
+  },
+  {
     "id": "card-carousel-item",
     "fields": [
       {
