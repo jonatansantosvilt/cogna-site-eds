@@ -190,7 +190,33 @@
   },
   {
     "id": "banner",
-    "fields": []
+    "fields": [
+      {
+        "component": "image",
+        "name": "image",
+        "label": "Imagem de Fundo"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Título do Banner (Opcional)"
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Texto / Descrição (Opcional)"
+      },
+      {
+        "component": "text",
+        "name": "buttonLink",
+        "label": "Link do Botão (Opcional)"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Texto do Botão (Opcional)"
+      }
+    ]
   },
   {
     "id": "card-carousel-item",

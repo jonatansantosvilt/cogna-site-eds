@@ -24,12 +24,7 @@
   },
   {
     "id": "banner",
-    "components": [
-      "image",
-      "title",
-      "text",
-      "button"
-    ]
+    "components": []
   },
   {
     "id": "card-carousel",
